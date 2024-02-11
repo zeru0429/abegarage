@@ -8,6 +8,15 @@ import TableRow from '@mui/material/TableRow';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Link } from 'react-router-dom';
+import ConfirmationDialog from '../Dialog/ConfirmationDialog';
+import { Slide } from '@mui/material';
+
+import  CustomerService from '../../../../Service/CustomerService'
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
+
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -34,6 +43,37 @@ function createData(customer_id, active, firstName, lastName, email, phoneNumber
 }
 
 export default function CustomerTable(props) {
+  const [open, setOpen] = React.useState(false);
+  const [selectedRow,setSelectedRow] = React.useState({});
+  
+  const handleClose = () => {
+    setOpen(false);
+    props.setDisplayAlert(false);
+    props.setDisplayMessage({});
+ 
+  };
+  const handleClickOpen = (row) => {
+    //console.log(row)
+    setSelectedRow(row);
+    setOpen(true);
+  };
+
+  const handleDelete =async (id)=>{
+    const response = await CustomerService.deleteCustomer(id)
+    // console.log(response);
+     alert(response.message);
+      props.setDisplayAlert(true);
+
+      if(response.success){
+        props.setDisplayMessage({message: response.message,type:"success"});
+      }else{
+        props.setDisplayMessage({message: response.message, type:"error"});
+      }
+      props.fetchData();
+      handleClose();
+    }
+
+
   const rows = props.data.map((single) => {
     return createData(
       single.customer_id,
@@ -60,10 +100,11 @@ export default function CustomerTable(props) {
         </TableRow>
       </TableHead>
       <TableBody>
+        {rows.length==0 && <p className='center'>no record is found</p>}
         {rows && rows.map((row) => (
           <StyledTableRow key={row.customer_id}>
             <StyledTableCell component="th" scope="row">
-              {row.active}
+              {row.active ? "Yes": "No"}
             </StyledTableCell>
             <StyledTableCell align="right">{row.firstName}</StyledTableCell>
             <StyledTableCell align="right">{row.lastName}</StyledTableCell>
@@ -79,15 +120,25 @@ export default function CustomerTable(props) {
                   </Link>
                 </div>
                 <div className="col-4">
-                  <Link to="/admin/customer/edit/:id">
-                    <DeleteIcon />
-                  </Link>
+               
+                    <DeleteIcon onClick={()=>handleClickOpen(row)} />
+                  
                 </div>
               </div>
             </StyledTableCell>
           </StyledTableRow>
         ))}
       </TableBody>
+      <ConfirmationDialog 
+        message='Are you sure you want to delete?'
+        open={open}
+        firstName={selectedRow.firstName + " " + selectedRow.lastName}
+        handleDelete={handleDelete}
+        handleClose={handleClose}
+        Transition={Transition}
+        id={selectedRow.customer_id}
+        />
+
     </Table>
   );
 }

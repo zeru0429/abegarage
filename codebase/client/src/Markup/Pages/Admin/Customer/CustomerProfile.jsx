@@ -1,5 +1,6 @@
 import React from 'react'
 import AdminMenu from '../../../Components/Admin/AdminMenu/AdminMenu'
+import CustomerDetail from '../../../Components/Customer/CustomerDetail'
 
 function CustomerProfile() {
   return (
@@ -9,7 +10,7 @@ function CustomerProfile() {
       <AdminMenu  />
       </div>
       <div className="col-8">
-      <div> customer Profile</div>
+      <CustomerDetail />
       </div>
     </div>
 </div>  

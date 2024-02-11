@@ -214,4 +214,42 @@ export default {
 		}
 		return { isValid, errors };
 	},
+
+	vehicleForm: (form)=>{
+      let isValid = true;
+		const errors = {};  
+
+		return { isValid, errors };
+	
+	},
+
+	ServicesForm: (form) => {
+		let isValid = true;
+		const errors = {};
+	 
+		// Validate user role
+		if (!form.serviceName) {
+		  errors.serviceName = "Service name is required";
+		  isValid = false;
+		}
+	 
+		if (!form.serviceDescription) {
+		  errors.serviceDescription = "Service description is required";
+		  isValid = false;
+		}
+	 
+		// Check other conditions
+		if (form.serviceName && form.serviceName.length < 3) {
+		  errors.serviceName = "Service name should be at least 3 characters long";
+		  isValid = false;
+		}
+	 
+		if (form.serviceDescription && form.serviceDescription.length > 400) {
+		  errors.serviceDescription = "Service description should not exceed 400 characters";
+		  isValid = false;
+		}
+	 
+		return { isValid, errors };
+	 }
+
 }

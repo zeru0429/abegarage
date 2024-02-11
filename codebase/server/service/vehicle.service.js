@@ -1,52 +1,90 @@
 import { query } from "../config/pool.js";
-import customerQuery from "../query/customer.query.js";
+import vehicleQuery from "../query/vehicle.query.js";
 
 const vehicleService = {
-	getCustomerByID: async (data) => {
-		try {
-			const row = await query(customerQuery.getCustomerByID, [data]);
-			return row;
-		} catch (error) {
-			console.log(error);
-		}
-	},
+    insertVehicle: async (data) => {
+        try {
+            console.log(data)
+            console.log(vehicleQuery.insertVehicle)
+            const row = await query(vehicleQuery.insertVehicle, [
+                data.customer_id,
+                data.vehicle_year,
+                data.vehicle_make,
+                data.vehicle_model,
+                data.vehicle_type,
+                data.vehicle_mileage,
+                data.vehicle_tag,
+                data.vehicle_serial,
+                data.vehicle_color
+            ]);
+           return row;
+          
+        } catch (error) {
+            console.log(error);
+            throw new Error("Error inserting vehicle");
+        }
+    },
 
-	insertIntocustomer_vehicle_info: async (data) => {
-		try {
-			const row = await query(customerQuery.insertCustomerVehicleInfoTable, [
-				data.customer_id,
-				data.vehicle_year,
-				data.vehicle_make,
-				data.vehicle_model,
-				data.vehicle_type,
-				data.vehicle_mileage,
-				data.vehicle_tag,
-				data.vehicle_serial,
-				data.vehicle_color,
-			]);
-			return row;
-		} catch (error) {
-			console.log(error);
-		}
-	},
-	updateIntoCustomerVehicleInfoTable: async (data) => {
-		try {
-			const row = await query(customerQuery.updateCustomerVehicleInfoTable, [
-				data.customer_id,
-				data.vehicle_year,
-				data.vehicle_make,
-				data.vehicle_model,
-				data.vehicle_type,
-				data.vehicle_mileage,
-				data.vehicle_tag,
-				data.vehicle_serial,
-				data.vehicle_color,
-			]);
-			return row;
-		} catch (error) {
-			console.log(error);
-		}
-	},
+    updateVehicle: async (data, id) => {
+        try {
+            const row = await query(vehicleQuery.updateVehicle, [
+                data.vehicle_year,
+                data.vehicle_make,
+                data.vehicle_model,
+                data.vehicle_type,
+                data.vehicle_mileage,
+                data.vehicle_tag,
+                data.vehicle_serial,
+                data.vehicle_color,
+                id
+            ]);
+            return row;
+        } catch (error) {
+            console.log(error);
+            throw new Error("Error updating vehicle");
+        }
+    },
+
+    deleteVehicle: async (id) => {
+        try {
+            const row = await query(vehicleQuery.deleteVehicle, [id]);
+            return row;
+        } catch (error) {
+            console.log(error);
+            throw new Error("Error deleting vehicle");
+        }
+    },
+
+    getVehicleById: async (id) => {
+        try {
+            const rows = await query(vehicleQuery.getVehicleById, [id]);
+            return rows;
+        } catch (error) {
+            console.log(error);
+            throw new Error("Error getting vehicle by ID");
+        }
+    },
+
+    getAllVehicles: async () => {
+        try {
+            const rows = await query(vehicleQuery.getAllVehicles);
+            return rows;
+        } catch (error) {
+            console.log(error);
+            throw new Error("Error getting all vehicles");
+        }
+    },
+
+    getVehicleByCustomerId: async (id) => {
+        try {
+            const rows = await query(vehicleQuery.getVehicleCustomerId, [id]);
+            return rows;
+        } catch (error) {
+            console.log(error);
+            throw new Error("Error getting vehicle by ID");
+        }
+    },
+
 };
 
 export default vehicleService;

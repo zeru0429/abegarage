@@ -21,14 +21,15 @@ function AddCustomerForm() {
 		else{
       setErrors({})
       const response = await CustomerService.register(form);
-      if(!response.sucess){
-        alert(response.message);
-        setForm({})
-        setErrors({})
-        navigator('/admin/customers');
+      alert(response.message);
+     // console.log(response.success)
+     if(!response.success){
+      setErrors({});
 		}
 		else{
-
+      setForm({})
+      setErrors({})
+      navigator('/admin/customers');
 		}
 
 		}

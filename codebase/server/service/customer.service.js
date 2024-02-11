@@ -74,15 +74,24 @@ const customerService = {
 		}
 	},
 
-	deleteCustomerData: async (data) => {
+	deleteCustomerData: async (id) => {
 		try {
-			const row = await query(customerQuery.deleteCustomer, [data.customer_id]);
+			const row = await query(customerQuery.deleteCustomer, [id]);
 			return row;
 		} catch (error) {
 			console.log(error);
 		}
 	},
 
+	deleteCustomerIdentifier: async (id) => {
+		try {
+			
+			const row = await query(customerQuery.deleteCustomerIdentifier, [id]);
+			return row;
+		} catch (error) {
+			console.log(error);
+		}
+	},
 
 	allcustomer: async () => {
 		try {
@@ -92,6 +101,16 @@ const customerService = {
 			console.log(error);
 		}
 	},
+
+	seachCustomer: async (data)=>{
+		
+		try {
+			const row = await query(customerQuery.seachCustomer, [data,data,data,data]);
+			return row;
+		} catch (error) {
+			console.log(error);
+		}
+	}
 };
 
 export default customerService;

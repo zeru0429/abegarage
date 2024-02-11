@@ -4,6 +4,8 @@ import EmployeeTable from '../../../Components/Commen/DataTable/EmployeeTable'
 import axios from '../../../../Utility/axios';
 import CustomeAlert from '../../../Components/Commen/Alerts/Alert';
 import EmployeeService from '../../../../Service/Employee.service';
+import BootstrapTable from '../../../Components/Commen/DataTable/BootstrapTable'
+import {format} from 'date-fns'
 
 function Employees() {
   const [employee,setEmployee] = useState([]);
@@ -40,7 +42,7 @@ function Employees() {
         <div className="">
           <h2 className='pt-5 pl-5'>Employee </h2>
         </div>
-    { <CustomeAlert type={displayMessage.type} message={displayMessage.message} />}   
+      { <CustomeAlert type={displayMessage.type} message={displayMessage.message} />}  
       <EmployeeTable  
         className='m-0 p-0' 
         data={employee} 
@@ -48,6 +50,7 @@ function Employees() {
         setDisplayAlert={setDisplayAlert}
         setDisplayMessage={setDisplayMessage}
         />
+        {/* <BootstrapTable  data={employee}  /> */}
       </div>
     </div>
 </div>  

@@ -29,13 +29,15 @@ function EditCustomerForm(props) {
       else{
         setErrors({})
         const response = await CustomerService.updateCustomer(form,form.customer_id);
-          if(!response.sucess){
-            alert(response.message);
+        alert(response.message);
+       // console.log(response);
+          if(!response.success){
+            setForm({});
+          }
+          else{
             setForm({})
             setErrors({})
             navigator('/admin/customers');
-          }
-          else{
 
           }
       }
