@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import Table from 'react-bootstrap/Table';
 import PanToolAltIcon from '@mui/icons-material/PanToolAlt';
@@ -6,8 +6,8 @@ import PanToolAltIcon from '@mui/icons-material/PanToolAlt';
 
 function OrderStepThree(props) {
 
-  console.log(props.selectedCustomer==null);
-  console.log(props.selectedCustomer)
+
+  
   return (
     <>
    
@@ -18,13 +18,13 @@ function OrderStepThree(props) {
             <b>{props.selectedCustomer.customer_first_name} {props.selectedCustomer.customer_last_name}</b>
           </h5>
           <div>
-            <b>Email: </b> <spna className='text'> {props.selectedCustomer.customer_email}</spna>
+            <b>Email: </b> <span className='text'> {props.selectedCustomer.customer_email}</span>
           </div>
           <div>
-            <b>Phone: </b> <spna className='text'>{props.selectedCustomer.customer_phone_number}</spna>
+            <b>Phone: </b> <span className='text'>{props.selectedCustomer.customer_phone_number}</span>
           </div>
           <div>
-            <b>Active Customer: </b><spna className='text'>{props.selectedCustomer.active_customer_status==1? 'Yes' : 'No'}</spna>
+            <b>Active Customer: </b><span className='text'>{props.selectedCustomer.active_customer_status==1? 'Yes' : 'No'}</span>
           </div>
           <div>
             <b>Edit Customer info: </b> <BorderColorOutlinedIcon  className='danger' /> 
@@ -36,7 +36,7 @@ function OrderStepThree(props) {
       </div>
     </div> }
 
-    <div className="container mt-2" style={{backgroundColor: 'white'}}>
+   {props.vehicle &&  <div className="container mt-2" style={{backgroundColor: 'white'}}>
       <div className="row pt-5" >
           <div className="col-12">
             <h5 className='pb-3'>
@@ -57,51 +57,24 @@ function OrderStepThree(props) {
               </thead>
             
               <tbody>
-                <tr>
-                  <td>2000</td>
-                  <td>BMW</td>
-                  <td>X7</td>
-                  <td>0101AD</td>
-                  <td>49229226</td>
-                  <td>Golden</td>
-                  <td>12000</td>
-                  <td><PanToolAltIcon /></td>
-                </tr>
-                <tr>
-                  <td>2000</td>
-                  <td>BMW</td>
-                  <td>X7</td>
-                  <td>0101AD</td>
-                  <td>49229226</td>
-                  <td>Golden</td>
-                  <td>12000</td>
-                  <td><PanToolAltIcon /></td>
-                </tr>
-                <tr>
-                  <td>2000</td>
-                  <td>BMW</td>
-                  <td>X7</td>
-                  <td>0101AD</td>
-                  <td>49229226</td>
-                  <td>Golden</td>
-                  <td>12000</td>
-                  <td><PanToolAltIcon /></td>
-                </tr>
-                <tr>
-                  <td>2000</td>
-                  <td>BMW</td>
-                  <td>X7</td>
-                  <td>0101AD</td>
-                  <td>49229226</td>
-                  <td>Golden</td>
-                  <td>12000</td>
-                  <td><PanToolAltIcon /></td>
-                </tr>       
+              {props.vehicle.length<1 && <p className="text"> no vehicle found</p>}
+               {props.vehicle && props.vehicle.map((single)=>{
+                return <tr>
+                        <td>{single.vehicle_year}</td>
+                        <td>{single.vehicle_make}</td>
+                        <td>{single.vehicle_model}</td>
+                        <td>{single.vehicle_tag}</td>
+                        <td>{single.vehicle_serial}</td>
+                        <td>{single.vehicle_color}</td>
+                        <td>{single.vehicle_mileage}</td>
+                        <td><PanToolAltIcon onClick={()=>{props.setSelectedVehicles(single)}} /></td>
+                      </tr>
+               })}
               </tbody>
             </Table>
           </div>
         </div>
-    </div>
+    </div>}
     
     </>
   )

@@ -40,6 +40,16 @@ export default{
          console.log(error.response.data)
          return null;
       }
+   },
+   
+   getSingleCustomerVehicle: async(id)=>{
+      try {
+         const response =  await axios.get(`api/vehicles/customer/:${id}`); 
+         return response.data.data;
+      } catch (error) {
+         console.log(error.response.data)
+         return null;
+      }
    }
    
 }
