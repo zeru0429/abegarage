@@ -3,10 +3,21 @@ import { Form } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 import SearchIcon from '@mui/icons-material/Search';
 import OrderStepTwo from './OrderStepTwo';
-function OrderStepOne() {
+import CustomerService from '../../../Service/CustomerService';
+function OrderStepOne({setSelectedCustomer,selectedCustomer}) {
   const navigator = useNavigate();
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
+  const [customers,setCustomers] = useState([]);
+ 
+
+  const handleSearch =async ()=>{
+    const response = await CustomerService.searchCustomer(form.userInput);
+    setCustomers(response);
+  }
+
+
+
 
   const hadleSubmit = async (e) => {
 		e.preventDefault();
@@ -14,6 +25,8 @@ function OrderStepOne() {
 		console.log(form) 
   
   }
+
+
 
   return (
     <> 
@@ -33,7 +46,7 @@ function OrderStepOne() {
                   }}
               />
               <span id='searchIcon' >
-										<SearchIcon />
+										<SearchIcon onClick={handleSearch}/>
 							</span>
 
               {errors.userInput && (
@@ -43,7 +56,7 @@ function OrderStepOne() {
               )}
             </div>
             <div className="form-group col-md-12">
-                <OrderStepTwo />
+                <OrderStepTwo customers={customers} setSelectedCustomer={setSelectedCustomer}/>
             </div>
           
             <div className="form-group col-md-12">

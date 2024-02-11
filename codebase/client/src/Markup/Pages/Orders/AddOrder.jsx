@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import AdminMenu from '../../Components/Admin/AdminMenu/AdminMenu'
 import OrderStepOne from '../../Components/Order/OrderStepOne'
 import OrderStepTwo from '../../Components/Order/OrderStepTwo'
 import OrderStepThree from '../../Components/Order/OrderStepThree'
 import OrderStepFour from '../../Components/Order/OrderStepFour'
 function AddOrder() {
+  const [selectedCustomer,setSelectedCustomer] = useState({});
+
   return (
     <div className="container m-0 p-0">
     <div className="row">
@@ -15,8 +17,8 @@ function AddOrder() {
       <div className="sec-title style-two">
         <h2 className='p-3'>Create new Order</h2>
       </div>
-        <OrderStepOne />
-        <OrderStepThree />
+        <OrderStepOne  selectedCustomer={selectedCustomer} setSelectedCustomer={setSelectedCustomer}/>
+        <OrderStepThree selectedCustomer={selectedCustomer} />   
         <OrderStepFour />
       </div>
     </div>

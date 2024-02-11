@@ -6,7 +6,7 @@ customerRoute.post("/api/customer", customerController.createCustomer);
 customerRoute.put("/api/customer/:id", customerController.updateCustomer);
 customerRoute.delete("/api/customer/:id", customerController.deleteCustomer);
 customerRoute.get("/api/customer", customerController.allcustomer);
-customerRoute.get("/api/customer/:data", customerController.seachCustomer);
+customerRoute.get("/api/customer/:userInput", customerController.seachCustomer);
 
 // customerRoute.delete("/api/customer/:customerId", customerController.deleteCustomer);
 

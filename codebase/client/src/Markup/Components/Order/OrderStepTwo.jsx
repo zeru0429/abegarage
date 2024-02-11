@@ -3,42 +3,21 @@ import Table from 'react-bootstrap/Table';
 import PanToolAltIcon from '@mui/icons-material/PanToolAlt';
 
 
-function OrderStepTwo() {
+function OrderStepTwo({customers,setSelectedCustomer}) {
   return (
     <Table striped bordered hover>
       <tbody>
-        <tr>
-         
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>marck@gmai.com</td>
-          <td>0949229226</td>
-          <td><PanToolAltIcon /></td>
-        </tr>
-        <tr>
+        {customers.length==0 && <p className='text pl-5'>no customer found</p>}
+        {customers && customers.map((single)=>{
+          return <tr key={single.customer_id}>
+                    <td>{single.customer_first_name}</td>
+                    <td>{single.customer_last_name}</td>
+                    <td>{single.customer_email}</td>
+                    <td>{single.customer_phone_number}</td>
+                    <td><PanToolAltIcon onClick={()=>setSelectedCustomer(single)} /></td>
+                  </tr>
+        })}
       
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>kebe@fat.com</td>
-          <td>0949229226</td>
-          <td><PanToolAltIcon /></td>
-        </tr>
-        <tr>
-       
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>kebe@fat.com</td>
-        <td>0949229226</td>
-        <td><PanToolAltIcon /></td>
-        </tr>
-        <tr>
-     
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo.com</td>
-          <td>0949229226</td>
-          <td><PanToolAltIcon /></td>
-        </tr>
       </tbody>
     </Table>
   )

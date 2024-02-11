@@ -4,24 +4,27 @@ import Table from 'react-bootstrap/Table';
 import PanToolAltIcon from '@mui/icons-material/PanToolAlt';
 
 
-function OrderStepThree() {
+function OrderStepThree(props) {
+
+  console.log(props.selectedCustomer==null);
+  console.log(props.selectedCustomer)
   return (
     <>
    
-    <div className="container mb-2" style={{backgroundColor: 'white'}}>
+    {props.selectedCustomer && <div className="container mb-2" style={{backgroundColor: 'white'}}>
       <div className="row">
        <div className="col-10 p-4">
           <h5 className='pb-3'>
-            <b>Adugna Bekele</b>
+            <b>{props.selectedCustomer.customer_first_name} {props.selectedCustomer.customer_last_name}</b>
           </h5>
           <div>
-            <b>Email: </b> <spna className='text'> mihiretutigistu@gmail.com</spna>
+            <b>Email: </b> <spna className='text'> {props.selectedCustomer.customer_email}</spna>
           </div>
           <div>
-            <b>Phone: </b> <spna className='text'>0949229226</spna>
+            <b>Phone: </b> <spna className='text'>{props.selectedCustomer.customer_phone_number}</spna>
           </div>
           <div>
-            <b>Active Customer: </b><spna className='text'> yes</spna>
+            <b>Active Customer: </b><spna className='text'>{props.selectedCustomer.active_customer_status==1? 'Yes' : 'No'}</spna>
           </div>
           <div>
             <b>Edit Customer info: </b> <BorderColorOutlinedIcon  className='danger' /> 
@@ -31,7 +34,7 @@ function OrderStepThree() {
         <div className="btn btn-danger">X</div>
        </div>
       </div>
-    </div> 
+    </div> }
 
     <div className="container mt-2" style={{backgroundColor: 'white'}}>
       <div className="row pt-5" >

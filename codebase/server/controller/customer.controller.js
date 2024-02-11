@@ -159,7 +159,7 @@ const customerController = {
 
 	seachCustomer:  async (req, res, next) => {
 		try {
-			const data = req.params.data.substring(1);
+			const data = req.params.userInput.substring(1);
 			const row = await customerService.seachCustomer(data);
 				res.status(200).json({
 					success: true,

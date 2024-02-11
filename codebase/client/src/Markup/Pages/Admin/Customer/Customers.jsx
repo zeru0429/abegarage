@@ -5,6 +5,7 @@ import CustomerTable from '../../../Components/Commen/DataTable/CustomerTable';
 import CustomerService from '../../../../Service/CustomerService';
 import CustomeAlert from '../../../Components/Commen/Alerts/Alert';
 
+
 function Customers() {
   const [customer,setCustomer] = useState([]);
   const [displayAlert,setDisplayAlert] = React.useState(false);

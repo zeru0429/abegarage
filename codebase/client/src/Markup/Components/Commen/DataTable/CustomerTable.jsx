@@ -10,7 +10,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { Link } from 'react-router-dom';
 import ConfirmationDialog from '../Dialog/ConfirmationDialog';
 import { Slide } from '@mui/material';
-
+import InfoIcon from '@mui/icons-material/Info';
 import  CustomerService from '../../../../Service/CustomerService'
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -124,6 +124,7 @@ export default function CustomerTable(props) {
                     <DeleteIcon onClick={()=>handleClickOpen(row)} />
                   
                 </div>
+                <InfoIcon />
               </div>
             </StyledTableCell>
           </StyledTableRow>
