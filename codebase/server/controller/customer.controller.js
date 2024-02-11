@@ -1,13 +1,13 @@
 import customerService from "../service/customer.service.js";
-import bcrypt from "bcrypt";
+
+import { v4 as uuidv4 } from 'uuid';
 
 const customerController = {
 	createCustomer: async (req, res) => {
 		// Check all fields are provided
 
 		req.body.active_customer_status = 1;
-		const salt = bcrypt.genSaltSync(10);
-		req.body.customer_hash = bcrypt.hashSync(req.body.customer_email, salt);
+		req.body.customer_hash = uuidv4();
 
 		const {
 			customer_email,
@@ -62,6 +62,7 @@ const customerController = {
 
 	updateCustomer: async (req, res) => {
 		const customer_id = req.params.id.substring(1);	
+		
 		const {
 			customer_phone_number,
 			customer_first_name,
@@ -104,8 +105,7 @@ const customerController = {
 	},
 
 	deleteCustomer: async (req, res) => {
-		const { customer_id } = req.body;
-
+		const customer_id  = req.params.id.substring(1);	
 		if (!customer_id) {
 			return res.status(400).json({
 				success: false,
@@ -123,7 +123,23 @@ const customerController = {
 		}
 
 		// Start deleting
-		await customerService.deleteCustomerData(customer_id);
+		const isdelatedInfo = await customerService.deleteCustomerData(customer_id);
+		
+
+		if(!isdelatedInfo){
+			return res.status(404).json({
+				success: false,
+				message: "error during deleting",
+			});
+		}
+		const isdelated = await customerService.deleteCustomerIdentifier(customer_id);
+		
+		if(!isdelated){
+			return res.status(404).json({
+				success: false,
+				message: "error during deleting",
+			});
+		}
 
 		// Send a confirmation message for the successful deletion of the customer account.
 		return res.status(200).json({
@@ -140,6 +156,24 @@ const customerController = {
 			data: row
 		});
 	},
+
+	seachCustomer:  async (req, res, next) => {
+		try {
+			const data = req.params.data.substring(1);
+			const row = await customerService.seachCustomer(data);
+				res.status(200).json({
+					success: true,
+					data: row
+				});
+			
+		} catch (error) {
+			res.status(500).json({
+				success: false,
+				data: error.message
+			});
+			
+		}
+	}
 };
 
 export default customerController;

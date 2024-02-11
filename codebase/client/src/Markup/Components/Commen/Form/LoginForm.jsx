@@ -98,7 +98,7 @@ function LoginForm() {
 												placeholder="Password"
 
 											/>
-											<span>
+											<span id='searchIcon'>
 												{visible ?	<VisibilityIcon onClick={()=>setVisible(!visible)} />  :<VisibilityOffIcon  onClick={()=>setVisible(!visible)} /> }
 											</span>
 											{passwordError && (

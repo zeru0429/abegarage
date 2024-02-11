@@ -16,7 +16,7 @@ function Admin() {
         <>
           <div className="m-0 p-0" >
               <div className="row">
-                <div className="col-4">
+                <div className="col-3">
                 <AdminMenu  />
                 </div>
                 <div className="col-7 me-0 mr-0">

@@ -3,20 +3,32 @@ export default{
    register: async (data)=>{
       try {
          const response = await axios.post('api/customer', data);
-         console.log(response.data)
-         return{sucess: true, message: response.data.message}
+          console.log(response.data)
+         return response.data;
       } catch (error) {
          console.log(error.response.data.message)
-         return {sucess: false,message: error.response.data.message}
+         return error.response.data;
       }
    },
    updateCustomer: async (data,id)=>{
       try {
          const response = await axios.put(`api/customer/:${id}`,data);
-         return{sucess: true, message: response.data.message}
+         return response.data;
       } catch (error) {
          console.log(error.response.data.message)
-         return {sucess: false,message: error.response.data.message}
+         return error.response.data;
+      }
+   },
+  
+   deleteCustomer: async (id)=>{
+      try {
+         const response = await axios.delete(`/api/customer/:${id}`);
+         //console.log(response);
+         return response.data;
+      } catch (error) {
+         console.log(error);
+         console.log(error.response.data.message)
+         return error.response.data;
       }
    },
 

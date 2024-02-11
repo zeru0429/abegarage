@@ -55,7 +55,7 @@ function App() {
   //console.log(isAdmin);
 
   return (
-    <>
+    <div className='App'>
  
     <Header />
    
@@ -102,7 +102,7 @@ function App() {
       </Routes>
     <Footer />
   
-    </>
+    </div>
   )
 }
 

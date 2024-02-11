@@ -14,6 +14,7 @@ import Slide from '@mui/material/Slide';
 import axios from '../../../../Utility/axios';
 import ConfirmationDialog from '../Dialog/ConfirmationDialog';
 import EmployeeService from '../../../../Service/Employee.service';
+import { format } from 'date-fns';
 
 
 
@@ -99,16 +100,17 @@ export default function EmployeeTable(props) {
           </TableRow>
         </TableHead>
         <TableBody>
+        {rows.length==0 && <p className='center'>no record is found</p>}
           {rows &&  rows.map((row) =>{
             return<StyledTableRow key={row.employee_id}>
                       <StyledTableCell component="th" scope="row">
-                        {row.active_employee}
+                        {row.active_employee? "Yes": "No"}
                       </StyledTableCell>
                       <StyledTableCell align="right">{row.firstname}</StyledTableCell>
                       <StyledTableCell align="right">{row.lastname}</StyledTableCell>
-                      <StyledTableCell align="right">{row.email}</StyledTableCell>
+                      <StyledTableCell align="left">{row.email}</StyledTableCell>
                       <StyledTableCell align="right">{row.phone}</StyledTableCell>
-                      <StyledTableCell align="right">{row.added_date}</StyledTableCell>
+                      <StyledTableCell align="left">{format(new Date(row.added_date),'MM-dd-yy')}</StyledTableCell>
                       <StyledTableCell align="right">{row.company_role_name}</StyledTableCell>    
                       <StyledTableCell className='container pr-3' >
                         <div className="row">

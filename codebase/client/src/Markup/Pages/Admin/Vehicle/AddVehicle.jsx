@@ -1,5 +1,6 @@
 import React from 'react'
 import AdminMenu from '../../../Components/Admin/AdminMenu/AdminMenu'
+import CustomerDetail from '../../../Components/Customer/CustomerDetail'
 
 function AddVehicle() {
   return (
@@ -9,7 +10,7 @@ function AddVehicle() {
         <AdminMenu  />
         </div>
         <div className="col-8">
-        <div>Edit Employee</div>
+        <CustomerDetail />
         </div>
       </div>
     </div> 
