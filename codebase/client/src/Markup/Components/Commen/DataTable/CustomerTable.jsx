@@ -123,8 +123,11 @@ export default function CustomerTable(props) {
                
                     <DeleteIcon onClick={()=>handleClickOpen(row)} />
                   
-                </div>
-                <InfoIcon />
+                </div> 
+                <Link to= '/admin/customer/{customerId}' state={{ data: row }}>
+                   <InfoIcon  />
+                </Link>
+               
               </div>
             </StyledTableCell>
           </StyledTableRow>
