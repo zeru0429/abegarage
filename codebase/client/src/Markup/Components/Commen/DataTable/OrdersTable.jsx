@@ -1,77 +1,93 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
+import OrderService from '../../../../Service/OrderService';
+import { format } from 'date-fns';
+import { useAuth } from '../../../../Context/AuthContext';
+import { Table, Button } from 'react-bootstrap';
+import { FaEdit, FaTrash } from 'react-icons/fa';
 
-import {format} from 'date-fns'
-import {useAuth} from '../../../../Context/AuthContext'
-import {Table,Button} from 'react-bootstrap'
+function OrdersTable({ data }) {
+  const [orderList, setOrderList] = useState([]);
 
-function OrdersTable({data}) {
-  console.log(data);
+  useEffect(() => {
+    fetchOrders();
+  }, []);
+
+  const fetchOrders = async () => {
+    const response = await OrderService.getAllOrders();
+    setOrderList(response);
+  };
+
+  console.log(orderList);
+
+  const getOrderStatusColor = (status) => {
+    if (status === 0) {
+      return 'grey';
+    } else if (status === 1) {
+      return 'yellow';
+    } else {
+      return 'green';
+    }
+  };
+
   return (
     <>
-    <Table striped bordered hover>
-      <thead>
-        <tr>
-          <th>Order Id</th>
-          <th>Customer</th>
-          <th>Vehicle</th>
-          <th>Order Date</th>
-          <th>Recived By</th>
-          <th>Order status</th>
-          <th>View/Edite</th>
-          
-        </tr>
-      </thead>
-      <tbody>
+      <Table striped bordered hover>
+        <thead>
           <tr>
-
-                <td>{"34"}</td>
-                <td>
-                  Adugna Bekele <br />
-                  adugna45@gmail.com <br />
-                  098798765456
+            <th>Order Id</th>
+            <th>Customer</th>
+            <th>Vehicle</th>
+            <th>Order Date</th>
+            <th>Received By</th>
+            <th>Order Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {orderList &&
+            orderList.map((singleOrder) => {
+              return (
+                <tr key={singleOrder.order_id}>
+                  <td>{singleOrder.order_id}</td>
+                  <td>
+                    {singleOrder.customer_first_name} {singleOrder.customer_last_name} <br />
+                    {singleOrder.customer_email} <br />
+                    {singleOrder.customer_phone_number}
                   </td>
-                <td>
-                  BMW 07 <br />
-                  2020 <br />
-                  4844fgg
-                  
+                  <td>
+                    {singleOrder.vehicle_model} <br />
+                    {singleOrder.vehicle_year} <br />
+                    {singleOrder.vehicle_tag}
                   </td>
-                <td>
-                  31/12/2023
-                </td>
-                <td>
-                  Tewedaj Shola
-                </td>
-                <td className='primary'>
-                  completed
-                  </td> 
-                <td>Edite/Delete</td>
-            </tr>
-      </tbody>
-    </Table>
-
+                  <td>{singleOrder.order_date}</td>
+                  <td>
+                    {singleOrder.employee_first_name} {singleOrder.employee_last_name}
+                  </td>
+                  <td
+                    className="status-cell"
+                    style={{ backgroundColor: getOrderStatusColor(singleOrder.order_status) }}
+                  >
+                    {singleOrder.order_status === 0
+                      ? 'Received'
+                      : singleOrder.order_status === 1
+                      ? 'Progress'
+                      : 'Completed'}
+                  </td>
+                  <td>
+                    <Button variant="light" className="action-button">
+                      <FaEdit />
+                    </Button>
+                    <Button variant="light" className="action-button">
+                      <FaTrash />
+                    </Button>
+                  </td>
+                </tr>
+              );
+            })}
+        </tbody>
+      </Table>
     </>
-  )
+  );
 }
 
-export default OrdersTable
-
-
-
-/*
-
- {!data && <p className='center'>no record is found</p>} 
- {data && data.map((single)=>{
-  return <tr>
-          <td>{single.orderId==0? "NO": "Yes"}</td>
-          <td>{single.customer}</td>
-          <td>{single.Vehicle}</td>
-          <td>{format(new Date(single.orderDate),'MM-dd-yy | kk:mm')}</td>
-          <td>{single.recivedBy}</td>
-          <td>{single.orderStatus}</td> 
-          <td>Edite/Delete</td>
-       </tr>
- })}
-
-
-*/
+export default OrdersTable;

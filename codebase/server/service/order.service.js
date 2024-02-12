@@ -3,7 +3,12 @@ import orderQuery from "../query/order.query.js";
 
 const orderService = {
     insertOrder: async (data) => {
-        try {
+        try { //employee_id, customer_id, vehicle_id,order_total_price, additional_request,order_service_id 
+            console.log(data.employee_id,
+                data.customer_id,
+                data.vehicle_id,
+                data.active_order,
+                data.order_hash);
             const row = await query(orderQuery.insertOrder, [
                 data.employee_id,
                 data.customer_id,
@@ -61,7 +66,52 @@ const orderService = {
             console.log(error);
             throw new Error("Error getting all orders");
         }
+    },
+
+    insertOrderInfo: async (data) => {
+        try {// employee_id, customer_id, vehicle_id,order_total_price, additional_request,order_service_id 
+            const row = await query(orderQuery.insertOrderInfo, [
+                data.order_id,
+                data.order_total_price,
+                data.additional_request,
+                " "
+            ]);
+            return row;
+        } catch (error) {
+            console.log(error);
+            throw new Error("Error inserting order info");
+        }
+    },
+
+    insertOrderService: async (data) => {
+        try {
+            const row = await query(orderQuery.insertOrderService, [
+                data.order_id,
+                data.element_id,
+                0
+            ]);
+            return row;
+        } catch (error) {
+            console.log(error);
+            throw new Error("Error inserting order service");
+        }
+    },
+
+    insertOrderStatus: async (data) => {
+        try {
+            const row = await query(orderQuery.insertOrderStatus, [
+                data.order_id,
+                data.order_status
+            ]);
+            return row;
+        } catch (error) {
+            console.log(error);
+            throw new Error("Error inserting order status");
+        }
     }
+
+
+
 };
 
 export default orderService;

@@ -3,24 +3,57 @@ import { v4 as uuidv4 } from 'uuid';
 
 const orderController = {
     createOrder: async (req, res) => {
-        try {
-            const { employee_id, customer_id, vehicle_id, active_order } = req.body;
+        try {      
+          const { employee_id, customer_id, vehicle_id,order_total_price, additional_request,order_service_id } = req.body;
 
-            if (!employee_id || !customer_id || !vehicle_id ||  !active_order ) {
+            if (!employee_id || !customer_id || !vehicle_id || !order_total_price || !additional_request || !order_service_id ) {
                 return res.status(400).json({
                     success: false,
                     message: "All fields are required",
                 });
             }
-
+            
             req.body.order_hash = uuidv4();
-            const isInserted = await orderService.insertOrder(req.body);
-            if (!isInserted) {
+            req.body.order_status = 0;
+            req.body.active_order = 1;
+           const isOrderInserted = await orderService.insertOrder(req.body);
+            if (!isOrderInserted) {
                 return res.status(500).json({
                     success: false,
                     message: "Error during order creation",
                 });
             }
+
+            req.body.order_id = isOrderInserted.insertId;
+            const order_id = req.body.order_id;
+            console.log(req.body.insertId);
+
+            const isOrderInfoInserted = await orderService.insertOrderInfo(req.body);
+            if (!isOrderInfoInserted) {
+                return res.status(500).json({
+                    success: false,
+                    message: "Error during order creation",
+                });
+            }
+            let  isOrderServiceInserted;
+            order_service_id.forEach(async element_id => {
+             isOrderServiceInserted = await orderService.insertOrderService({order_id,element_id});
+             if (!isOrderServiceInserted) {
+                return res.status(500).json({
+                    success: false,
+                    message: "Error during order creation",
+                });
+            } 
+            });
+
+            const isOrderStatusInserted = await orderService.insertOrderStatus(req.body);
+
+            if (!isOrderStatusInserted) {
+                return res.status(500).json({
+                    success: false,
+                    message: "Error during order creation",
+                });
+            } 
 
             return res.status(200).json({
                 success: true,
@@ -130,7 +163,9 @@ const orderController = {
                 message: error.message,
             });
         }
-    }
+    },
+
+
 };
 
 export default orderController;

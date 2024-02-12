@@ -39,7 +39,13 @@ JOIN
 ON
     customer_info.customer_id = customer_identifier.customer_id;`,
 
-seachCustomer:`SELECT * FROM customer_identifier ci JOIN customer_info cinfo ON ci.customer_id = cinfo.customer_id WHERE cinfo.customer_first_name LIKE ?   OR cinfo.customer_last_name LIKE ? OR ci.customer_email LIKE ?   OR ci.customer_phone_number LIKE ?;`
+seachCustomer:`SELECT *
+FROM customer_identifier ci
+JOIN customer_info cinfo ON ci.customer_id = cinfo.customer_id
+WHERE cinfo.customer_first_name LIKE CONCAT('%', ?, '%')
+   OR cinfo.customer_last_name LIKE CONCAT('%', ?, '%')
+   OR ci.customer_email LIKE CONCAT('%', ?, '%')
+   OR ci.customer_phone_number LIKE CONCAT('%', ?, '%');`
 
 
 

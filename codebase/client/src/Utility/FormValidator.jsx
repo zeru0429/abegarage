@@ -250,6 +250,12 @@ export default {
 		}
 	 
 		return { isValid, errors };
+	 },
+	
+	 orderForm: (form) => {
+		let isValid = true;
+		const errors = {};
+		return { isValid, errors };
 	 }
 
 }

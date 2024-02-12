@@ -6,7 +6,7 @@ export default{
           //console.log(response.data)
           return response.data;
       } catch (error) {
-         console.log(error.response.data.message)
+        // console.log(error.response.data.message)
          return error.response.data;
       }
    },
@@ -15,7 +15,7 @@ export default{
          const response = await axios.put(`api/services/:${id}`,data);
          return response.data;
       } catch (error) {
-         console.log(error.response.data.message)
+       //  console.log(error.response.data.message)
          return error.response.data;
       }
    },

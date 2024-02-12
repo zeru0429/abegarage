@@ -347,3 +347,15 @@ input:disabled {
   right: 10px;
   cursor: pointer;
 }
+
+.status-cell {
+  padding: 10px;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.action-button {
+  margin-right: 5px;
+}
