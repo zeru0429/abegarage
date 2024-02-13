@@ -14,7 +14,7 @@ function AddVehicle() {
         <AdminMenu  />
         </div>
         <div className="col-8">
-        <CustomerDetail />
+        <CustomerDetail data={data}/>
         </div>
       </div>
     </div> 

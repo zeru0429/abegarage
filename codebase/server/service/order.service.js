@@ -58,6 +58,16 @@ const orderService = {
         }
     },
 
+    getSingleCustomerOrderById: async (id) => {
+        try {
+            const rows = await query(orderQuery.getSingleCustomerOrderById, [id]);
+            return rows;
+        } catch (error) {
+            console.log(error);
+            throw new Error("Error getting order by ID");
+        }
+    },
+
     getAllOrders: async () => {
         try {
             const rows = await query(orderQuery.getAllOrders);

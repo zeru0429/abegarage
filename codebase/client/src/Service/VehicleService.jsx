@@ -2,7 +2,7 @@ import axios from "../Utility/axios"
 export default{
    register: async (data)=>{
       try {
-         const response = await axios.post('api/vehicle', data);
+         const response = await axios.post('api/vehicles', data);
           console.log(response.data)
          return response.data;
       } catch (error) {

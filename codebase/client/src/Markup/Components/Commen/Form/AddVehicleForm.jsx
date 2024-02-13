@@ -19,9 +19,24 @@ function AddVehicleForm(props) {
 			setErrors(errorData)
 			return;
 		}
+	
+
 		else{
+			const data = {customer_id: props.data.customer_id,
+				vehicle_year: form.vehicleYear, 
+				vehicle_make: form.vehicleMake, 
+				vehicle_model:  form.vehicleModel, 
+				vehicle_type:  form.vehicleType, 
+				vehicle_mileage:  form.vehicleMileAge, 
+				vehicle_tag:  form.vehicleTage, 
+				vehicle_serial:  form.vehicleSerial, 
+				vehicle_color:  form.vehicleColor
+			} 
+
+			console.log(data);
+
 		setErrors({})
-		const response = await VehicleService.register(form,employee.employee_token);
+		const response = await VehicleService.register(data);
 		alert(response.message);
 		if(response.sucess){
 			console.log("added");
@@ -149,7 +164,7 @@ function AddVehicleForm(props) {
 					onChange={(e) => {
 						setForm({
 							...form,
-							vehicleModel: e.target.value,
+							vehicleTage: e.target.value,
 						});
 					}}
 				/>
@@ -168,7 +183,7 @@ function AddVehicleForm(props) {
 					onChange={(e) => {
 						setForm({
 							...form,
-							vehicleType: e.target.value,
+							vehicleSerial: e.target.value,
 						});
 					}}
 				/>
@@ -180,7 +195,7 @@ function AddVehicleForm(props) {
 			</div>
 			<div className="form-group col-md-12">
 				<input
-					type="number"
+					type="text"
 					name="vehicleColor"
 					placeholder="vehicle Color"
 					required

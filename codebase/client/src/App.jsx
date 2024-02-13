@@ -58,7 +58,6 @@ function App() {
     <div className='App'>
  
     <Header />
-   
   
       <Routes>
       
@@ -123,12 +122,12 @@ function App() {
                     </PrivateAuth>
                   </>}
         />
-       <Route path='/admin/customer/{customerId}'
+       {/* <Route path='/admin/customer/{customerId}'
           element={<><PrivateAuth roles={['admin','manager']}>
                       <CustomerProfile />
                     </PrivateAuth>
                   </>}
-        />
+        /> */}
         <Route path='/admin/customer/edit/:id'
           element={<><PrivateAuth roles={['admin','manager']}>
                       <EditCustomer />

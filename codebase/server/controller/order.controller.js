@@ -149,6 +149,30 @@ const orderController = {
         }
     },
 
+    getSingleCustomerOrders: async (req, res) => {
+        try {
+            const id = req.params.id.substring(1);
+            const order = await orderService.getSingleCustomerOrderById(id);
+            if (!order) {
+                return res.status(404).json({
+                    success: false,
+                    message: "Order not found",
+                });
+            }
+
+            return res.status(200).json({
+                success: true,
+                data: order,
+            });
+
+        } catch (error) {
+            return res.status(500).json({
+                success: false,
+                message: error.message,
+            });
+        }
+    },
+
     getAllOrders: async (req, res) => {
         try {
             const orders = await orderService.getAllOrders();

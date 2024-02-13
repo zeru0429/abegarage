@@ -11,7 +11,7 @@ function Admin() {
   console.log(isLogged);
  
   if(isLogged){
-    if(isAdmin){
+    // if(isAdmin){
       return (
         <>
           <div className="m-0 p-0" >
@@ -84,10 +84,10 @@ function Admin() {
           </div>  
         </>
         );
-    }
-    else{
-      navigator('/unauthorized');
-    }
+    // }
+    // else{
+    //   navigator('/unauthorized');
+    // }
   }
   else{
     return <LoginForm />

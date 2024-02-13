@@ -8,5 +8,6 @@ orderRoute.put("/api/orders/:id", orderController.updateOrder);
 orderRoute.delete("/api/orders/:id", orderController.deleteOrder);
 orderRoute.get("/api/orders/:id", orderController.getOrderById);
 orderRoute.get("/api/orders", orderController.getAllOrders);
+orderRoute.get("/api/orders/customer/:id", orderController.getSingleCustomerOrders);
 
 export default orderRoute;

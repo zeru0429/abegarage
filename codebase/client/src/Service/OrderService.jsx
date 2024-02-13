@@ -19,6 +19,18 @@ export default{
          console.log(error.response.data)
          return null;
       }
+   },
+
+   getSingleCustomerOrder: async(id)=>{
+      console.log(id);
+      try {
+         const response =  await axios.get(`api/orders/customer/:${id}`); 
+         
+         return response.data.data;
+      } catch (error) {
+         console.log(error.response.data)
+         return null;
+      }
    }
 
 }  
