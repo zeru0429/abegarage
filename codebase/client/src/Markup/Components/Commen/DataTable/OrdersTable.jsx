@@ -31,7 +31,7 @@ function OrdersTable({ data }) {
 
   return (
     <>
-      <Table striped bordered hover>
+      <Table striped bordered hover className='m-0 p-0'>
         <thead>
           <tr>
             <th>Order Id</th>

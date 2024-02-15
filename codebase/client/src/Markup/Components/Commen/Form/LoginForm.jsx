@@ -48,7 +48,8 @@ function LoginForm() {
 			if(loginEmployee.success){
 				localStorage.setItem("employee",JSON.stringify({employee_token: loginEmployee.token}));
 				fetchData();	
-				navigate("/");
+				useAuth();
+				
 			}
 			else{
 			

@@ -25,5 +25,51 @@ export default {
    insertOrderInfo: `INSERT INTO order_info (order_id, order_total_price, additional_request,additional_requests_completed) VALUES (?, ?, ?,?);`,
    insertOrderService: `INSERT INTO order_services (order_id, service_id,service_completed) VALUES (?, ?,?);`,
    insertOrderStatus: `INSERT INTO order_status (order_id, order_status) VALUES (?, ?);`,
-   getSingleCustomerOrderById : `SELECT * FROM orders WHERE order_id = ?`
+  
+  /*`vehicle_year` int(11) NOT NULL,
+  `vehicle_make` varchar(255) NOT NULL,
+  `vehicle_model` varchar(255) NOT NULL,
+  `vehicle_type` varchar(255) NOT NULL,
+  `vehicle_mileage` int(11) NOT NULL,  */
+  
+   getSingleCustomerOrderById : ` SELECT
+   orders.order_id AS orderId,
+   customer_vehicle_info.vehicle_year AS vehicle_year,
+   customer_vehicle_info.vehicle_make AS vehicle_make,
+   customer_vehicle_info.vehicle_type AS vehicle_type,
+   customer_vehicle_info.vehicle_model AS vehicle_model,
+   order_info.order_total_price AS order_total_price,
+   order_info.additional_requests_completed AS additional_requests_completed,
+   customer_info.customer_first_name AS customer_first_name,
+   customer_info.customer_last_name AS customer_last_name,
+   JSON_ARRAYAGG(
+       JSON_OBJECT(
+           'service_id', common_services.service_id,
+           'service_name', common_services.service_name,
+           'service_description', common_services.service_description
+       )
+   ) AS services_information
+FROM
+   orders
+JOIN
+   customer_vehicle_info ON orders.vehicle_id = customer_vehicle_info.vehicle_id
+JOIN
+   order_info ON orders.order_id = order_info.order_id
+JOIN
+   customer_info ON orders.customer_id = customer_info.customer_id
+JOIN
+   order_services ON orders.order_id = order_services.order_id
+JOIN
+   common_services ON order_services.service_id = common_services.service_id
+WHERE
+   orders.customer_id = ?
+GROUP BY
+   orders.order_id,
+   vehicle_year,
+   vehicle_make,
+   vehicle_model,
+   order_total_price,
+   additional_requests_completed,
+   customer_first_name,
+   customer_last_name;`
 };

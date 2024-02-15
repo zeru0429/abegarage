@@ -6,6 +6,9 @@ import AddEmployeeForm from '../Commen/Form/AddEmployeeForm';
 import { Link } from 'react-router-dom';
 import VehicleService from '../../../Service/VehicleService';
 import { Table } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 import PanToolAltIcon from '@mui/icons-material/PanToolAlt';
 import OrderService from '../../../Service/OrderService';
 
@@ -37,7 +40,7 @@ function CustomerDetail({data}) {
   const  handleVehicleSearch = async () => {
     if(data !==null){
     const response = await VehicleService.getSingleCustomerVehicle(data.customer_id);
-    console.log(response);
+    //console.log(response);
     setVehicles(response);
     
     }
@@ -45,6 +48,7 @@ function CustomerDetail({data}) {
   }
 
   const handleOrderSearch = async () => {
+    console.log(data.customer_id);
     if(data !==null){
     const response = await OrderService.getSingleCustomerOrder(data.customer_id);
     console.log(response);
@@ -57,7 +61,6 @@ function CustomerDetail({data}) {
 
   return (
       <div className='pt-5 pb-5 pl-1 pr-5'>
-        <h1>kkkk</h1>
         <div className="container p-4">
           <div className="row p-0 m-0">
             <div className="col-4"> 
@@ -132,17 +135,47 @@ function CustomerDetail({data}) {
             </div>
         </div>
       }
-        <div className="container p-4">
-          <div className="row p-0 m-0">
-            <div className="col-4"> 
-                <Avator data="Orders" />
-            </div>
-            <div className="col-8">
-                <h5 className='pb-3'><b>Order of Adugna</b></h5>
-                <h6>Orders will be displayed here</h6>
+      
+
+      <div className="container p-4">
+    <div className="row p-0 m-0">
+      <div className="col-md-4"> 
+        <Avator data="Orders" />
+      </div>
+      <div className="col-md-8">
+        <div className="row">
+          <div className="col-md-12">
+            <div className="card">
+              <div className="card-body">
+                <h5 className="card-title"><b>Order of Adugna</b></h5>
+                <p className="card-text">Orders will be displayed here</p>
+              </div>
             </div>
           </div>
+          {orders && orders.map((singleOrder) => {
+            return  <div className="container m-2 p-2" style={{ background: 'white' }}>
+                          <div className="row m-0 p-0">
+                            <div className="col-12 pb-0">
+                              <h5><b>{singleOrder.service_name}</b></h5>
+                            </div>
+                          </div>
+                          <div className="row m-0 p-0">
+                            <div className="col-10 pt-0">
+                              <p className='text'>{singleOrder.service_description}.</p>
+                            </div>
+                            <div className="col-2 bottom">
+                                 {singleOrder.active_order}
+                            </div>
+                          </div>
+                        </div>
+
+          })}
         </div>
+      </div>
+    </div>
+  </div>
+
+
       </div>
   )
 }
