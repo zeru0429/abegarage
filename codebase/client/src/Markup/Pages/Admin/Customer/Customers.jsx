@@ -10,7 +10,15 @@ import { useAuth } from "../../../../Context/AuthContext";
 import SearchIcon from "@mui/icons-material/Search";
 
 function Customers() {
-  const { isLogged, setIsLogged, employee, isAdmin } = useAuth();
+  const {
+    isLogged,
+    setIsLogged,
+    employee,
+    isAdmin,
+    isManager,
+    setIsManager,
+  } = useAuth();
+  
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
   const [customer, setCustomer] = useState([]);
@@ -48,7 +56,7 @@ function Customers() {
     <>
       {!isLogged ? (
         <Login />
-      ) : !isAdmin ? (
+      ) :  (!isAdmin && !isManager) ? (
         <div className="row">
           <div className="col-4">
             <AdminMenu />

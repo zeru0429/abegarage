@@ -359,3 +359,11 @@ input:disabled {
 .action-button {
   margin-right: 5px;
 }
+
+.mobile-menu-show {
+  display: block;
+}
+
+.mobile-menu-hide {
+  display: none;
+}

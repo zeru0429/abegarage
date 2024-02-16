@@ -42,6 +42,22 @@ const isAdmin = async (req, res, next) => {
     }
 };
 
+const isManagerOrAdmin = async (req, res, next) => {
+    try {
+       const id = req.id;
+      const userRole = await employeeService.getEmployeeRoleeByEmployeeId(req.id);
+		if(!userRole || !userRole.length > 0 || !(userRole[0]. company_role_name ==='manager') || !(userRole[0]. company_role_name ==='admin')){
+			return res.status(403).json({
+				success: false,
+				message: 'you have no privilage'
+			})
+		}
+        next();
+    } catch (err) {
+        res.status(500).json({ success: false,
+            message: err.message });
+    }
+};
 
 
-export{ auth,isAdmin};
+export{ auth,isAdmin,isManagerOrAdmin};

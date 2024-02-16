@@ -5,12 +5,20 @@ import Login from "../../Root/Login/Login";
 import UnauthorizedPage from "../../UnauthorizedPage";
 import { useAuth } from "../../../../Context/AuthContext";
 function AddCustomer() {
-  const { isLogged, setIsLogged, employee, isAdmin, fetchData } = useAuth ();
+  const {
+    isLogged,
+    setIsLogged,
+    employee,
+    isAdmin,
+    fetchData,
+    isManager,
+    setIsManager,
+  } = useAuth();
   return (
     <>
       {!isLogged ? (
         <Login />
-      ) : !isAdmin ? (
+      ) : (!isAdmin && !isManager)? (
         <div className="row">
           <div className="col-4">
             <AdminMenu />

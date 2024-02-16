@@ -17,7 +17,7 @@ function OrdersTable({ data }) {
     setOrderList(response);
   };
 
-  console.log(orderList);
+  //console.log(orderList);
 
   const getOrderStatusColor = (status) => {
     if (status === 0) {

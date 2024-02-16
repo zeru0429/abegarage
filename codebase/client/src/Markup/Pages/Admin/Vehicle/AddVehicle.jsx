@@ -7,7 +7,7 @@ import Login from "../../Root/Login/Login";
 import UnauthorizedPage from "../../UnauthorizedPage";
 
 function AddVehicle() {
-  const { isLogged, setIsLogged, employee, isAdmin, fetchData } = useAuth();
+  const { isLogged, setIsLogged, employee, isAdmin,isManager, fetchData } = useAuth();
   const location = useLocation();
   const { data } = location.state || {};
   console.log(data);
@@ -15,7 +15,7 @@ function AddVehicle() {
     <>
     {!isLogged ? (
       <Login />
-    ) : !isAdmin ? (
+    ) :  (!isAdmin && !isManager) ? (
       <div className="row">
         <div className="col-4">
           <AdminMenu />

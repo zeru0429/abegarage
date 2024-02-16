@@ -5,13 +5,21 @@ import UnauthorizedPage from "../../UnauthorizedPage";
 import Login from "../../Root/Login/Login";
 
 function CustomerProfile() {
-  const { isLogged, setIsLogged, employee, isAdmin, fetchData } = useAuth();
+  const {
+    isLogged,
+    setIsLogged,
+    employee,
+    isAdmin,
+    fetchData,
+    isManager,
+    setIsManager,
+  } = useAuth();
 
   return (
     <>
       {!isLogged ? (
         <Login />
-      ) : !isAdmin ? (
+      ) :  (!isAdmin && !isManager) ? (
         <div className="row">
           <div className="col-4">
             <AdminMenu />

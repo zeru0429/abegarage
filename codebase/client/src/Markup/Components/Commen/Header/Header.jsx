@@ -88,87 +88,50 @@ function Header(props) {
                     className={
                       width > 1139
                         ? "main-menu navbar-expand-md navbar-light"
-                        : ""
+                        : "nav-outer mobile-nav-toggler"
                     }>
                     <div
                       className="collapse navbar-collapse show clearfix"
                       id="navbarSupportedContent">
-                      {width > 1139 ? (
-                        <ul className="navigation">
-                          <li className="dropdown">
-                            <Link to="/">Home</Link>
-                          </li>
-                          <li className="dropdown">
-                            <Link to="/about">About Us</Link>
-                          </li>
-                          <li className="dropdown">
-                            <Link to="/services">Services</Link>
-                          </li>
-                          <li>
-                            <Link to="/contact">Contact Us</Link>
-                          </li>
-                          <li>{isLogged && <Link to="/admin">Admin</Link>}</li>
-                          <li>
-                            {isLogged ? (
-                              <div>
+                      <ul className="navigation">
+                        <li className="dropdown">
+                          <Link to="/">Home</Link>
+                        </li>
+                        <li className="dropdown">
+                          <Link to="/about">About Us</Link>
+                        </li>
+                        <li className="dropdown">
+                          <Link to="/services">Services</Link>
+                        </li>
+                        <li>
+                          <Link to="/contact">Contact Us</Link>
+                        </li>
+                        <li>{isLogged && <Link to="/admin">Admin</Link>}</li>
+                        <li>
+                          {isLogged ? (
+                            <div>
+                              {" "}
+                              <Link
+                                className="theme-btn btn-style-two"
+                                onClick={handleLogout}>
                                 {" "}
-                                <Link
-                                  className="theme-btn btn-style-two"
-                                  onClick={handleLogout}>
-                                  {" "}
-                                  LOG OUT{" "}
-                                </Link>
-                              </div>
-                            ) : (
-                              <div className="">
-                                <Link
-                                  to="/login"
-                                  className="theme-btn btn-style-one">
-                                  Login{" "}
-                                </Link>
-                              </div>
-                            )}
-                            <span> </span>
-                          </li>
-                        </ul>
-                      ) : (
-                        <>
-                          <div className="collapse navbar-collapse show clearfix">
-                            <div className="">
-                              <div className="menu-box">
-                                <div className="menu-outeR">
-                                  <ul>
-                                    <li>
-                                      <a href="projects.html">Projects</a>
-                                    </li>
-                                    <li>
-                                      <a href="project-details.html">
-                                        Project Details
-                                      </a>
-                                    </li>
-                                    <li>
-                                      <a href="testimonials.html">
-                                        Testimonials
-                                      </a>
-                                    </li>
-                                    <li>
-                                      <a href="faq.html">Faq</a>
-                                    </li>
-                                    <li>
-                                      <a href="error.html">404 Error Page</a>
-                                    </li>
-                                    <li>
-                                      <a href="comming-soon.html">
-                                        Coming Soon Page
-                                      </a>
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
+                                LOG OUT{" "}
+                              </Link>
                             </div>
-                          </div>
-                        </>
-                      )}
+                          ) : (
+                            <div className="">
+                              <Link
+                                to="/login"
+                                className="theme-btn btn-style-one">
+                                Login{" "}
+                              </Link>
+                            </div>
+                          )}
+                          <span> </span>
+                        </li>
+                      </ul>
+
+                      <></>
                     </div>
                   </nav>
                 </div>

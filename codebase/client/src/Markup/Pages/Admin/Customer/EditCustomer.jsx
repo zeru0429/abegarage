@@ -3,11 +3,20 @@ import AdminMenu from "../../../Components/Admin/AdminMenu/AdminMenu";
 import EditCustomerForm from "../../../Components/Commen/Form/EditCustomerForm";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../../Context/AuthContext";
+import Login from "../../Root/Login/Login";
 import UnauthorizedPage from "../../UnauthorizedPage";
-import { Login } from "@mui/icons-material";
 
 function EditCustomer() {
-  const { isLogged, setIsLogged, employee, isAdmin, fetchData } = useAuth();
+  const {
+    isLogged,
+    setIsLogged,
+    employee,
+    isAdmin,
+    fetchData,
+    isManager,
+    setIsManager,
+  } = useAuth();
+  
   const navigator = useNavigate();
   const location = useLocation();
   const { data } = location.state || {};
@@ -16,7 +25,7 @@ function EditCustomer() {
     <>
       {!isLogged ? (
         <Login />
-      ) : !isAdmin ? (
+      ) :  (!isAdmin && !isManager) ? (
         <div className="row">
           <div className="col-4">
             <AdminMenu />

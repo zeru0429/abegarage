@@ -3,12 +3,12 @@ import AdminMenu from "../../../Components/Admin/AdminMenu/AdminMenu";
 import { useAuth } from "../../../../Context/AuthContext";
 
 function EditVehicle() {
-  const { isLogged, setIsLogged, employee, isAdmin, fetchData } = useAuth();
+  const { isLogged, setIsLogged, employee, isAdmin,isManager, fetchData } = useAuth();
   return (
     <>
     {!isLogged ? (
       <Login />
-    ) : !isAdmin ? (
+    ) :  (!isAdmin && !isManager) ? (
       <div className="row">
         <div className="col-4">
           <AdminMenu />
