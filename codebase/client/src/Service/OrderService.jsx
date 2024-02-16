@@ -22,9 +22,20 @@ export default{
    },
 
    getSingleCustomerOrder: async(id)=>{
-      console.log(id);
+     
       try {
          const response =  await axios.get(`api/orders/customer/:${id}`); 
+         
+         return response.data.data;
+      } catch (error) {
+         console.log(error.response.data)
+         return null;
+      }
+   },
+
+   getSingleOrder: async(order_hash)=>{
+      try {
+         const response =  await axios.get(`api/order/${order_hash}`); 
          
          return response.data.data;
       } catch (error) {

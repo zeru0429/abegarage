@@ -71,5 +71,61 @@ GROUP BY
    order_total_price,
    additional_requests_completed,
    customer_first_name,
-   customer_last_name;`
+   customer_last_name;`,
+
+   getOrdersByOrder_hash: `SELECT 
+   oi.order_id,
+   o.active_order,
+   oi.order_total_price,
+   oi.estimated_completion_date,
+   oi.completion_date,
+   oi.additional_request,
+   oi.notes_for_internal_use,
+   oi.notes_for_customer,
+   oi.additional_requests_completed,
+   ci.customer_first_name,
+   ci.customer_last_name,
+   ci.active_customer_status,
+   cvi.vehicle_year,
+   cvi.vehicle_make,
+   cvi.vehicle_model,
+   cvi.vehicle_type,
+   cvi.vehicle_mileage,
+   cvi.vehicle_tag,
+   cvi.vehicle_serial,
+   JSON_ARRAYAGG(
+     JSON_OBJECT(
+       'service_name', cs.service_name,
+       'service_description', cs.service_description,
+       'service_completed', os.service_completed
+     )
+   ) AS services
+ FROM 
+   orders o
+   INNER JOIN order_info oi ON o.order_id = oi.order_id
+   INNER JOIN customer_info ci ON o.customer_id = ci.customer_id
+   INNER JOIN customer_vehicle_info cvi ON o.vehicle_id = cvi.vehicle_id
+   INNER JOIN order_services os ON o.order_id = os.order_id
+   INNER JOIN common_services cs ON os.service_id = cs.service_id
+ WHERE 
+   o.order_hash = ? 
+ GROUP BY 
+   oi.order_id,
+   oi.order_total_price,
+   oi.estimated_completion_date,
+   oi.completion_date,
+   oi.additional_request,
+   oi.notes_for_internal_use,
+   oi.notes_for_customer,
+   oi.additional_requests_completed,
+   ci.customer_first_name,
+   ci.customer_last_name,
+   ci.active_customer_status,
+   cvi.vehicle_year,
+   cvi.vehicle_make,
+   cvi.vehicle_model,
+   cvi.vehicle_type,
+   cvi.vehicle_mileage,
+   cvi.vehicle_tag,
+   cvi.vehicle_serial;`
 };

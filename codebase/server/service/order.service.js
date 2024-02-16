@@ -58,6 +58,17 @@ const orderService = {
         }
     },
 
+    getOrdersByOrder_hash: async (order_hash) => {
+        try {
+            const rows = await query(orderQuery.getOrdersByOrder_hash, [order_hash]);
+            return rows;
+        } catch (error) {
+            console.log(error);
+            throw new Error("Error getting order by ID");
+        }
+    },
+
+
     getSingleCustomerOrderById: async (id) => {
         try {
             const rows = await query(orderQuery.getSingleCustomerOrderById, [id]);

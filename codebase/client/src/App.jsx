@@ -3,10 +3,10 @@ import { Route, Routes } from "react-router-dom";
 //import styls
 import "./assets/template_assets/css/bootstrap.css";
 import "./assets/template_assets/css/style.css";
-import "./assets/template_assets/css/responsive.css";
 import "./assets/template_assets/css/color.css";
 import "./assets/styles/custom.css";
 import "./App.css";
+import "./assets/template_assets/css/responsive.css";
 
 // --------------- pages ------------------------ //
 //root
@@ -87,7 +87,7 @@ function App() {
                   }
                 />
                 <Route
-                  path="/order-detail"
+                  path="/order-detail/:orderHash"
                   element={
                     <>
                       <OrderDetail />
