@@ -44,29 +44,37 @@ function ServicesManage() {
           <div className="col-4">
             <AdminMenu />
           </div>
-          <div className="col-8">
-            <div className="sec-title style-two">
-              <h2>Services we provide</h2>
-              <div className="text">
-                Bring to the table win-win survival strategies to ensure
-                proactive domination. At the end of the day, going forward, a
-                new normal that has evolved from generation X is on the runway
-                heading towards a streamlined cloud solution.
+          <div className="col-8 pt-4">
+            <div className="conatiner">
+              <div className="row">
+                <div className="col-12">
+                  <div className="sec-title style-two">
+                    <h2>Services we provide</h2>
+                    <div className="text">
+                      Bring to the table win-win survival strategies to ensure
+                      proactive domination. At the end of the day, going
+                      forward, a new normal that has evolved from generation X
+                      is on the runway heading towards a streamlined cloud
+                      solution.
+                    </div>
+                    {garageService &&
+                      garageService.map((single) => (
+                        <ServiceCard
+                          setOpen={setOpen}
+                          open={open}
+                          setSelectedService={setSelectedService}
+                          key={single.service_id}
+                          fetchData={fetchData}
+                          data={single}
+                        />
+                      ))}
+                    <AddServiceForm fetchData={fetchData} />
+                  </div>
+                </div>
               </div>
-              {garageService &&
-                garageService.map((single) => (
-                  <ServiceCard
-                    setOpen={setOpen}
-                    open={open}
-                    setSelectedService={setSelectedService}
-                    key={single.service_id}
-                    fetchData={fetchData}
-                    data={single}
-                  />
-                ))}
             </div>
-            <AddServiceForm fetchData={fetchData} />
           </div>
+
           {open && (
             <div className="popup">
               <div className="popup-content">

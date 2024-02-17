@@ -56,7 +56,6 @@ function EditServiceForm(props) {
 
   return (
    <>
-   <div className="btn btn-danger">X</div>
       <div className="container">
          <div className="sec-title style-two">
                <h2 className='p-3'>Edite Services</h2>

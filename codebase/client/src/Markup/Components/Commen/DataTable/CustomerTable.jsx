@@ -7,6 +7,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ConfirmationDialog from "../Dialog/ConfirmationDialog";
 import CustomerService from "../../../../Service/CustomerService";
 import { useToast } from "../../../../Context/ToastContext";
+import LaunchIcon from "@mui/icons-material/Launch";
 
 function CustomerTable(props) {
   const { setToastData } = useToast();
@@ -33,12 +34,10 @@ function CustomerTable(props) {
     setOpen(!open);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log("object");
     //props.setCustomer(props.data);
-
-
-  },[props.data])
+  }, [props.data]);
 
   console.log(props.data);
 
@@ -83,6 +82,11 @@ function CustomerTable(props) {
                     <DeleteIcon
                       onClick={() => handleClickOpen(singleCustomer)}
                     />
+                    <Link
+                      to={`/admin/customer/:{customerId}`}
+                      state={{ data: singleCustomer }}>
+                      <LaunchIcon />
+                    </Link>
                   </td>
                 </tr>
               );

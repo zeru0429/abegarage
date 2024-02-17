@@ -203,12 +203,14 @@ function App() {
                     </>
                   }
                 />
-                {/* <Route path='/admin/customer/{customerId}'
-          element={<><PrivateAuth roles={['admin','manager']}>
+                <Route
+                  path="/admin/customer/:{customerId}"
+                  element={
+                    <>
                       <CustomerProfile />
-                    </PrivateAuth>
-                  </>}
-        /> */}
+                    </>
+                  }
+                />
                 <Route
                   path="/admin/customer/edit/:id"
                   element={

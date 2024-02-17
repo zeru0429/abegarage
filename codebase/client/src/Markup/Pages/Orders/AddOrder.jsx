@@ -21,7 +21,9 @@ import OrderService from "../../../Service/OrderService";
 import { useNavigate } from "react-router-dom";
 import Login from "../Root/Login/Login";
 import UnauthorizedPage from "../UnauthorizedPage";
+import { useToast } from "../../../Context/ToastContext";
 function AddOrder() {
+  const { toastData, hideToast, setToastData } = useToast();
   const [form, setForm] = useState({ service: [] });
   const [errors, setErrors] = useState({});
   const [customers, setCustomers] = useState([]);
@@ -100,8 +102,7 @@ function AddOrder() {
     } else {
       setErrors({});
       const response = await OrderService.register(formaData2);
-      alert(response.message);
-
+      setToastData(response);
       // console.log(response.success)
       if (!response.success) {
         setErrors({});

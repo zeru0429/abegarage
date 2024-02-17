@@ -3,8 +3,12 @@ import AdminMenu from "../../../Components/Admin/AdminMenu/AdminMenu";
 import CustomerDetail from "../../../Components/Customer/CustomerDetail";
 import UnauthorizedPage from "../../UnauthorizedPage";
 import Login from "../../Root/Login/Login";
-
+import { useAuth } from "../../../../Context/AuthContext";
+import { useLocation, useNavigate } from "react-router-dom";
 function CustomerProfile() {
+  const navigator = useNavigate();
+  const location = useLocation();
+  const { data } = location.state || {};
   const {
     isLogged,
     setIsLogged,
@@ -15,11 +19,13 @@ function CustomerProfile() {
     setIsManager,
   } = useAuth();
 
+  console.log(data);
+
   return (
     <>
       {!isLogged ? (
         <Login />
-      ) :  (!isAdmin && !isManager) ? (
+      ) : !isAdmin && !isManager ? (
         <div className="row">
           <div className="col-4">
             <AdminMenu />
@@ -32,7 +38,7 @@ function CustomerProfile() {
             <AdminMenu />
           </div>
           <div className="col-8">
-            <CustomerDetail />
+            <CustomerDetail data={data} />
           </div>
         </div>
       )}
