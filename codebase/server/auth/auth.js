@@ -29,6 +29,7 @@ const isAdmin = async (req, res, next) => {
     try {
        const id = req.id;
       const userRole = await employeeService.getEmployeeRoleeByEmployeeId(req.id);
+      console.log(userRole);
 		if(!userRole || !userRole.length > 0 || !(userRole[0]. company_role_name ==='admin')){
 			return res.status(403).json({
 				success: false,
@@ -46,7 +47,7 @@ const isManagerOrAdmin = async (req, res, next) => {
     try {
        const id = req.id;
       const userRole = await employeeService.getEmployeeRoleeByEmployeeId(req.id);
-		if(!userRole || !userRole.length > 0 || !(userRole[0]. company_role_name ==='manager') || !(userRole[0]. company_role_name ==='admin')){
+		if(!userRole || !userRole.length > 0 || (userRole[0]. company_role_name !=='manager' && userRole[0]. company_role_name !=='admin')){
 			return res.status(403).json({
 				success: false,
 				message: 'you have no privilage'

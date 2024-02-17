@@ -2,9 +2,11 @@ import React, { useState } from 'react'
 import FormValidator from '../../../../Utility/FormValidator';
 import ServicesService from '../../../../Service/ServicesService'
 import { useAuth } from '../../../../Context/AuthContext';
+import { useToast } from "../../../../Context/ToastContext";
 import {useNavigate} from 'react-router-dom'
 function AddServiceForm(props) {
    const navigator = useNavigate();
+   const { toastData, hideToast,setToastData } = useToast();
    const { isLogged, setIsLogged, employee,isAdmin, fetchData } = useAuth();
    const [form, setForm] = useState({});
    const [errors, setErrors] = useState({});
@@ -23,8 +25,9 @@ function AddServiceForm(props) {
 		else{
 		setErrors({})
 		const response = await ServicesService.register(form);
-		alert(response.message);
-      console.log(response.success);
+		//alert(response.message);
+    //  console.log(response.success);s
+    setToastData(response);
 		if(response.success){
 			//console.log("added");
          setForm({}); // Reset the form input fields

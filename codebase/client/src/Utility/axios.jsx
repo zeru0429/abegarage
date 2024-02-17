@@ -10,7 +10,7 @@ const instance = axios.create({
 instance.interceptors.request.use(async (config) => {
 	const data =  await getAuth();
 	const token = data.employee_token;
-	console.log(token);
+	//console.log(token);
 	
 	if (token) {
 		 config.headers ={

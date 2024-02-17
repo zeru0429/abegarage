@@ -9,6 +9,8 @@ import { format } from "date-fns";
 import { useAuth } from "../../../../Context/AuthContext";
 import UnauthorizedPage from "../../UnauthorizedPage";
 import Login from "../../Root/Login/Login";
+import { Table, Button } from "react-bootstrap";
+import { FaEdit, FaTrash } from "react-icons/fa";
 
 function Employees() {
   const { isLogged, setIsLogged, employee, isAdmin } = useAuth();
@@ -49,23 +51,19 @@ function Employees() {
           <div className="col-4">
             <AdminMenu />
           </div>
-          <div className="col-8">
-            <div className="mt-4">
-              <h2 className="mb-3">Employee __</h2>
-            </div>
-            {
-              <CustomeAlert
-                type={displayMessage.type}
-                message={displayMessage.message}
+          <div className="col-8 pt-5">
+            <div className="container">
+              <div className="mt-4">
+                <div className="sec-title style-two">
+                  <h2 className="mb-3">Employee</h2>
+                </div>
+              </div>
+              <EmployeeTable
+                className="m-0 p-0"
+                data={employees}
+                fetchData={fetchData}
               />
-            }
-            <EmployeeTable
-              className="m-0 p-0"
-              data={employees}
-              fetchData={fetchData}
-              setDisplayAlert={setDisplayAlert}
-              setDisplayMessage={setDisplayMessage}
-            />
+            </div>
           </div>
         </div>
       )}

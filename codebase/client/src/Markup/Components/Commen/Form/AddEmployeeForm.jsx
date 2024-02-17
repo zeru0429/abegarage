@@ -3,10 +3,11 @@ import FormValidator from '../../../../Utility/FormValidator';
 import EmployeeService from '../../../../Service/Employee.service'
 import { useNavigate } from 'react-router-dom';
 import {useAuth} from '../../../../Context/AuthContext'
-
+import { useToast } from "../../../../Context/ToastContext";
+//import { Toast, notify } from "../Toast/Toast";
 function AddEmployeeForm() {
 	const { isLogged, setIsLogged, employee,isAdmin, fetchData } = useAuth();
-
+	const { toastData, hideToast,setToastData } = useToast();
 	const [form, setForm] = useState({});
 	const [roles,setRoles] = useState([]);
 	const [errors, setErrors] = useState({});
@@ -24,27 +25,30 @@ function AddEmployeeForm() {
 
 	const hadleSubmit = async (e) => {
 		e.preventDefault();
-		console.log(form)
+	//	console.log(form)
 		const formData = FormValidator.employeeForm(form);
 		const isValid = formData.isValid;
 		if(!isValid){
 			const errorData = formData.errors;
-			console.log(errorData)
+		//	console.log(errorData)
 			setErrors(errorData)
 			return;
 		}
 		else{
 		setErrors({})
 		const response = await EmployeeService.register(form,employee.employee_token);
-		alert(response.message);
-		if(response.sucess){
-			console.log("added");
+		console.log(response);
+		setToastData(response);
+		//alert(response.message);
+		if(response.success){
+			//notify(response.message, response.sucess);
+			//console.log("added");
 			setForm({})
 			setErrors({})
 			navigator('/admin/employees');
 		}
 		else{
-
+			//notify(response.message, response.sucess);s
 		}
 
 		}

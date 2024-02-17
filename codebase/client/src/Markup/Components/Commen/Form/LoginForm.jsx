@@ -6,11 +6,12 @@ import FormValidator from "../../../../Utility/FormValidator";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useAuth } from "../../../../Context/AuthContext";
-import { Toast, notify } from "../Toast/Toast";
-import { ToastContainer, toast } from "react-toastify";
+import { useToast } from "../../../../Context/ToastContext";
+//import { ToastNotification  } from "../Toast/Toast";
 import "react-toastify/dist/ReactToastify.css";
 
 function LoginForm() {
+  const { toastData, hideToast,setToastData } = useToast();
   const { isLogged, setIsLogged, employee, isAdmin, fetchData } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -47,8 +48,9 @@ function LoginForm() {
       setPasswordError("");
       const loginEmployee = await LoginService.login(form);
       //tost message
-      //  console.log(loginEmployee);
-      notify(loginEmployee.message, loginEmployee.success);
+      // console.log(loginEmployee);
+     // notify(loginEmployee.message, loginEmployee.success);
+      setToastData(loginEmployee);
       if (loginEmployee.success) {
         localStorage.setItem(
           "employee",
@@ -62,7 +64,7 @@ function LoginForm() {
 
   return (
     <>
-      <Toast />
+    
       <section className="contact-section">
         <div className="auto-container">
           <div className="contact-title">

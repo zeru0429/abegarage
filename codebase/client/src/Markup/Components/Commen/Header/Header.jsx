@@ -139,32 +139,32 @@ function Header(props) {
             </div>
           </div>
         </div>
-        <div class="sticky-header">
-          <div class="header-upper">
-            <div class="auto-container">
-              <div class="inner-container">
-                <div class="logo-box">
-                  <div class="logo">
+        <div className="sticky-header">
+          <div className="header-upper">
+            <div className="auto-container">
+              <div className="inner-container">
+                <div className="logo-box">
+                  <div className="logo">
                     <a href="index.html">
                       <img src="assets/images/logo.png" alt="" />
                     </a>
                   </div>
                 </div>
-                <div class="right-column">
-                  <div class="nav-outer">
-                    <div class="mobile-nav-toggler">
+                <div className="right-column">
+                  <div className="nav-outer">
+                    <div className="mobile-nav-toggler">
                       <img src="assets/images/icons/icon-bar.png" alt="" />
                     </div>
 
-                    <nav class="main-menu navbar-expand-md navbar-light"></nav>
+                    <nav className="main-menu navbar-expand-md navbar-light"></nav>
                   </div>
-                  <div class="search-btn">
-                    <button type="button" class="theme-btn search-toggler">
-                      <span class="stroke-gap-icon icon-Search"></span>
+                  <div className="search-btn">
+                    <button type="button" className="theme-btn search-toggler">
+                      <span className="stroke-gap-icon icon-Search"></span>
                     </button>
                   </div>
-                  <div class="link-btn">
-                    <a href="#" class="theme-btn btn-style-one">
+                  <div className="link-btn">
+                    <a href="#" className="theme-btn btn-style-one">
                       Book a Schedule{" "}
                     </a>
                   </div>

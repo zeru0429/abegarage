@@ -3,8 +3,10 @@ import EmployeeService from '../../../../Service/Employee.service';
 import axios from '../../../../Utility/axios';
 import React, { useEffect, useState } from 'react'
 import FormValidator from '../../../../Utility/FormValidator';
+import { useToast } from "../../../../Context/ToastContext";
 
 function EditEmployeeForm({data,roles}) {
+   const { toastData, hideToast,setToastData } = useToast();
    const navigator = useNavigate();
    //console.log(data);
   
@@ -36,8 +38,9 @@ function EditEmployeeForm({data,roles}) {
         setErrors({})
        // console.log(form.employee_id);
       const response = await EmployeeService.updateEmployee(form,form.employee_id);
-      alert(response.message);
-      if(response.sucess){
+      //alert(response.message);
+      setToastData(response);
+      if(response.success){
          setForm({})
          setErrors({})
          navigator('/admin/employees');

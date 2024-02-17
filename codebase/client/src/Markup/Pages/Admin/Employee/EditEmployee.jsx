@@ -35,43 +35,46 @@ function EditEmployees() {
   };
 
   return (
-
     <>
-    {!isLogged ? (
-      <Login />
-    ) : !isAdmin ? (
-      <div className="row">
-        <div className="col-4">
-          <AdminMenu />
-        </div>
-        <UnauthorizedPage />
-      </div>
-    ) : (
-      <div className="row">
-        <div className="col-4">
-          <AdminMenu />
-        </div>
-        <div className="col-8">
-        <div className="inner-column">
-          <div className="contact-form sec-title style-two">
-            <br />
-            <h2>Edit:</h2>
-            <br />
-            <p className="font-weight-bold">Empployee email: {data.email}</p>
+      {!isLogged ? (
+        <Login />
+      ) : !isAdmin ? (
+        <div className="row">
+          <div className="col-4">
+            <AdminMenu />
           </div>
+          <UnauthorizedPage />
+        </div>
+      ) : (
+        <div className="row">
+          <div className="col-4">
+            <AdminMenu />
+          </div>
+          <div className="col-8 pt-5">
+            <div className="container">
+              <div className="inner-column">
+                <div className="contact-form sec-title style-two">
+                  <div className="sec-title style-two">
+                    <h2>
+                      Edit: {data.firstname} {data.lastname}
+                    </h2>
+                    <p className="font-weight-bold pt-0 mt-0">
+                      Empployee email: {data.email}
+                    </p>
+                  </div>
+                </div>
 
-          <div className="contact-form">
-            <div>
-              <EditEmployeeForm data={data} roles={roles} />
+                <div className="contact-form">
+                  <div>
+                    <EditEmployeeForm data={data} roles={roles} />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      </div>
-    )}
-  </>
-
-
+      )}
+    </>
   );
 }
 

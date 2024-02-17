@@ -2,8 +2,10 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import FormValidator from '../../../../Utility/FormValidator';
 import CustomerService from '../../../../Service/CustomerService';
+import { useToast } from "../../../../Context/ToastContext";
 
 function EditCustomerForm(props) {
+  const { toastData, hideToast,setToastData } = useToast();
   const navigator = useNavigate();
 	const [form, setForm] = useState({
 		customer_id: props.data.customer_id, 
@@ -29,8 +31,9 @@ function EditCustomerForm(props) {
       else{
         setErrors({})
         const response = await CustomerService.updateCustomer(form,form.customer_id);
-        alert(response.message);
+       // alert(response.message);
        // console.log(response);
+       setToastData(response);
           if(!response.success){
             setForm({});
           }

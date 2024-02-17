@@ -48,6 +48,7 @@ import PrivateAuth from "./Markup/Components/Auth/PrivateAuth";
 // ---!------------- components   ---------------!-------//
 
 import { useAuth } from "./Context/AuthContext";
+import ToastNotification from "./Markup/Components/Commen/Toast/Toast";
 
 function App() {
   const { isLogged, setIsLogged, employee, isAdmin, fetchData } = useAuth();
@@ -60,6 +61,7 @@ function App() {
         <div className="row">
           <div className="col-12">
             <div className="">
+              <ToastNotification />
               <Routes>
                 {/* Root pages anyone */}
                 <Route

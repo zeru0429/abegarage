@@ -3,7 +3,9 @@ import FormValidator from '../../../../Utility/FormValidator';
 import ServicesService from '../../../../Service/ServicesService'
 import { useAuth } from '../../../../Context/AuthContext';
 import {useNavigate} from 'react-router-dom'
+import { useToast } from "../../../../Context/ToastContext";
 function EditServiceForm(props) {
+   const { toastData, hideToast,setToastData } = useToast();
   
    const navigator = useNavigate();
    const { isLogged, setIsLogged, employee,isAdmin, fetchData } = useAuth();
@@ -30,8 +32,9 @@ function EditServiceForm(props) {
 		setErrors({})
       //console.log(props.data.service_id);
 		const response = await ServicesService.updateService(form,props.data.service_id);
-		alert(response.message);
-      console.log(response.success);
+		//alert(response.message);
+      setToastData(response);
+    //  console.log(response.success);
 		if(response.success){
 			//console.log("added");
          setForm({}); // Reset the form input fields

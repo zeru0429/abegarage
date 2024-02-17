@@ -2,12 +2,13 @@ import FormValidator from '../../../../Utility/FormValidator';
 import CustomerService from '../../../../Service/CustomerService'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { useToast } from "../../../../Context/ToastContext";
 
 function AddCustomerForm() {
   const [form, setForm] = useState({});
 	const [errors, setErrors] = useState({});
   const navigator = useNavigate();
-
+  const { toastData, hideToast,setToastData } = useToast();
 	const hadleSubmit = async (e) => {
 		e.preventDefault();
     const formData = FormValidator.customerForm(form);
@@ -21,8 +22,9 @@ function AddCustomerForm() {
 		else{
       setErrors({})
       const response = await CustomerService.register(form);
-      alert(response.message);
+    //  alert(response.message);
      // console.log(response.success)
+     setToastData(response);
      if(!response.success){
       setErrors({});
 		}

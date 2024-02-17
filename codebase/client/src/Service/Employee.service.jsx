@@ -3,33 +3,33 @@ export default{
    register: async (data,token)=>{
       try {
          const response = await axios.post('api/employee', data);
-         return{sucess: true, message: response.data.message}
+         return{success: true, message: response.data.message}
       } catch (error) {
-         console.log(error.response.data.message)
-         return {sucess: false,message: error.response.data.message}
+         //console.log(error.response.data.message)
+         return {success: false,message: error.response.data.message}
       }
    },
    updateEmployee: async (data,id)=>{
       try {
          data.company_role_id = data.userRole;
          const response = await axios.put(`/api/employee/:${id}`,data);
-         console.log(response);
-         return{sucess: true, message: response.data.message}
+        // console.log(response);
+         return{success: true, message: response.data.message}
       } catch (error) {
-         console.log(error);
-         console.log(error.response.data.message)
-         return {sucess: false,message: error.response.data.message}
+         //console.log(error);
+         //console.log(error.response.data.message)
+         return {success: false,message: error.response.data.message}
       }
    },
    deleteEmployee: async (id)=>{
       try {
          const response = await axios.delete(`/api/employee/:${id}`);
-         console.log(response);
-         return{sucess: true, message: response.data.message}
+         //console.log(response);
+         return{success: true, message: response.data.message}
       } catch (error) {
-         console.log(error);
-         console.log(error.response.data.message)
-         return {sucess: false,message: error.response.data.message}
+        // console.log(error);
+        // console.log(error.response.data.message)
+         return {success: false,message: error.response.data.message}
       }
    },
 
@@ -38,7 +38,7 @@ export default{
          const response = await axios.get('api/employees/roles');  
          return response.data.data;
       } catch (error) {
-         console.log(error.response.data)
+         //console.log(error.response.data)
          return null;
       }
    },
@@ -47,7 +47,7 @@ export default{
          const response =  await axios.get('api/employees'); 
          return response.data.data;
       } catch (error) {
-         console.log(error.response.data)
+       // console.log(error.response.data)
          return null;
       }
    }

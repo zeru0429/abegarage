@@ -1,56 +1,43 @@
-import React from "react";
+// ToastNotification.jsx
+
+import React, { useEffect } from "react";
+import { useToast } from "../../../../Context/ToastContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const notify = (message,success) =>{
-	if(success){
-	  return toast.success(message, {
-		 position: "top-center",
-		 autoClose: 3000,
-		 hideProgressBar: false,
-		 closeOnClick: false,
-		 pauseOnHover: true,
-		 draggable: true,
-		 progress: undefined,
-		 theme: "light",
-		 transition: toast.Slide,
-		 progress: 100
-	  });
-	}
-	else{
-	  return toast.error(message, {
-		 position: "top-center",
-		 autoClose: 3000,
-		 hideProgressBar: false,
-		 closeOnClick: false,
-		 pauseOnHover: true,
-		 draggable: true,
-		 progress: undefined,
-		 theme: "light",
-		 transition: toast.Slide,
-	  });
-	}
- }
+const ToastNotification = () => {
+  const { toastData, hideToast } = useToast();
 
- 
-function Toast() {
+  useEffect(() => {
+    if (toastData.message !== null) {
+      if (toastData.success) {
+        toast.success(toastData.message, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } else {
+        toast.error(toastData.message, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+      hideToast();
+    }
+  }, [toastData, hideToast]);
 
-  return (
-    <>
-      <ToastContainer
-			position="top-center"
-			autoClose={3000}
-			hideProgressBar={false}
-			newestOnTop={false}
-			closeOnClick={false}
-			rtl={false}
-			pauseOnFocusLoss
-			draggable
-			pauseOnHover
-			theme="light"
-			/>
-    </>
-  );
-}
+  return <ToastContainer />;
+};
 
-export  {Toast,notify};
+export default ToastNotification;

@@ -24,11 +24,15 @@ function AddEmployees() {
             <AdminMenu />
           </div>
           <div className="col-8">
-            <div className="mt-4">
-              <h2 className="mb-3">Add new Employee __</h2>
-              <div className="form-column col-lg-7">
-                <div className="inner-column">
-                  <AddEmployeeForm />
+            <div className="container">
+              <div className="mt-4">
+              <div className="sec-title style-two">
+                <h2 className="mb-3">Add new Employee</h2>
+                </div>
+                <div className="form-column col-lg-7">
+                  <div className="inner-column">
+                    <AddEmployeeForm />
+                  </div>
                 </div>
               </div>
             </div>

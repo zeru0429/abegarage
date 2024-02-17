@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import VehicleService from '../../../../Service/VehicleService'
 import FormValidator from '../../../../Utility/FormValidator'
+import { useToast } from "../../../../Context/ToastContext";
 
 function AddVehicleForm(props) {
   const [form, setForm] = useState({});
 	const [errors, setErrors] = useState({});
-
+	const { toastData, hideToast,setToastData } = useToast();
 
   const hadleSubmit = async (e) => {
 		e.preventDefault();
@@ -37,7 +38,8 @@ function AddVehicleForm(props) {
 
 		setErrors({})
 		const response = await VehicleService.register(data);
-		alert(response.message);
+		//alert(response.message);
+		setToastData(response);
 		if(response.sucess){
 			console.log("added");
 			setForm({})

@@ -18,7 +18,7 @@ function AddCustomer() {
     <>
       {!isLogged ? (
         <Login />
-      ) : (!isAdmin && !isManager)? (
+      ) : !isAdmin && !isManager ? (
         <div className="row">
           <div className="col-4">
             <AdminMenu />
@@ -30,13 +30,17 @@ function AddCustomer() {
           <div className="col-4">
             <AdminMenu />
           </div>
-          <div className="col-8">
-            <div className="form-column col-lg-7">
-              <h2 className="pb-3">Add new Customer __</h2>
-              <div className="inner-column">
-                <div className="contact-form">
-                  <div>
-                    <AddCustomerForm />
+          <div className="col-8 pt-5">
+            <div className="container">
+              <div className="form-column col-lg-7">
+                <div className="sec-title style-two">
+                  <h2 className="pb-3">Add new Customer</h2>
+                </div>
+                <div className="inner-column">
+                  <div className="contact-form">
+                    <div>
+                      <AddCustomerForm />
+                    </div>
                   </div>
                 </div>
               </div>
