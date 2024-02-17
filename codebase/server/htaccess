@@ -1,7 +1,7 @@
 # DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION BEGIN
-PassengerAppRoot "/home/huludeig/abegarage.huludelala.com"
+PassengerAppRoot "/home/huludeig/repositories/abegarage/codebase/server"
 PassengerBaseURI "/"
-PassengerNodejs "/home/huludeig/nodevenv/abegarage.huludelala.com/18/bin/node"
+PassengerNodejs "/home/huludeig/nodevenv/repositories/abegarage/codebase/server/20/bin/node"
 PassengerAppType node
 PassengerStartupFile app.js
 # DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION END
