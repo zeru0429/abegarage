@@ -45,19 +45,6 @@
 	}
 }
 
-@media only screen and (max-width: 1139px){
-	/* Default */
-	.main-header .nav-outer .main-menu,
-	.sticky-header{
-		display: none !important;
-	}
-	.nav-outer .mobile-nav-toggler{
-		display: block;
-	}
-	.main-header.header-style-two .header-info-right {
-		display: none;
-	}
-}
 
 @media only screen and (max-width: 991px){
 	.banner-section .content-box h1 {
