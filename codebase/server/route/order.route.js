@@ -10,6 +10,7 @@ orderRoute.delete("/api/orders/:id",[auth,isManagerOrAdmin], orderController.del
 orderRoute.get("/api/orders/:id",[auth], orderController.getOrderById);
 orderRoute.get("/api/orders",[auth], orderController.getAllOrders);
 orderRoute.get("/api/order/:order_hash", orderController.getOrdersByOrder_hash);
-orderRoute.get("/api/orders/customer/:id",[auth], orderController.getSingleCustomerOrders);
+//api/orders/customer/:${id}
+orderRoute.get("/api/orders/customer/:id", orderController.getSingleCustomerOrders);
 
 export default orderRoute;

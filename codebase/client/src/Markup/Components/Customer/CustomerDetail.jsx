@@ -16,11 +16,12 @@ function CustomerDetail({ data }) {
   const [popUp, setPopUp] = useState(true);
   const [showVehicleFom, setVehicleForm] = useState(false);
   const [vehicle, setVehicles] = useState([]);
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState([{}]);
 
   const handleClick = () => {
     console.log("kkk");
-    // setPopUp(false);
+    setVehicleForm(!showVehicleFom);
+    //setPopUp(false);
   };
 
   const handleClickVehicleForm = () => {
@@ -44,12 +45,12 @@ function CustomerDetail({ data }) {
   };
 
   const handleOrderSearch = async () => {
-    console.log(data.customer_id);
+    // console.log(data.customer_id);
     if (data !== null) {
       const response = await OrderService.getSingleCustomerOrder(
         data.customer_id
       );
-      console.log(response);
+     // console.log(response);
       setOrders(response);
     }
     //console.log(singleVehicle);
@@ -91,7 +92,7 @@ function CustomerDetail({ data }) {
 
       {vehicle &&
         vehicle.map((singleVehicle) => {
-          console.log(singleVehicle);
+          // console.log(singleVehicle);
           return (
             <div className="container p-4">
               <div className="row p-0 m-0">
@@ -127,7 +128,7 @@ function CustomerDetail({ data }) {
                   <div>
                     <b>Edit Customer info: </b>
                     <Link
-                      to="/admin/customer/edit/:id"
+                      to="/admin/vehicle/edit/:id"
                       state={{ data: singleVehicle }}>
                       <BorderColorOutlinedIcon />
                     </Link>{" "}
@@ -138,7 +139,7 @@ function CustomerDetail({ data }) {
           );
         })}
 
-      {vehicle.length == 0 && (
+      {
         <div className="container p-4">
           <div className="row p-0 m-0">
             <div className="col-4">
@@ -150,7 +151,9 @@ function CustomerDetail({ data }) {
                   Vehicle for {data.firstName} {data.lastName}{" "}
                 </b>
               </h5>
-              <input type="text" value="" placeholder="No vehicle found" />{" "}
+              {vehicle.length == 0 && (
+                <input type="text" value="" placeholder="No vehicle found" />
+              )}
               <br />
               <br />
               <div
@@ -161,18 +164,21 @@ function CustomerDetail({ data }) {
             </div>
           </div>
         </div>
-      )}
+      }
 
       {showVehicleFom && (
         <div className="container p-4">
           <div className="row">
             <div className="col-12">
-              <button
+            <button
                 onClick={handleClick}
                 className="float-right btn btn-danger">
                 X
               </button>
-              <AddVehicleForm data={data} />
+            </div>
+            <div className="col-12">
+             
+              <AddVehicleForm data={data}  showVehicleFom={showVehicleFom} setVehicleForm={setVehicleForm}  handleVehicleSearch={handleVehicleSearch}/>
             </div>
           </div>
         </div>
@@ -186,43 +192,63 @@ function CustomerDetail({ data }) {
           <div className="col-md-8">
             <div className="row">
               <div className="col-md-12">
-                <div className="card">
-                  <div className="card-body">
-                    <h5 className="card-title">
-                      <b>
-                        Order of {data.firstName} {data.lastName}{" "}
-                      </b>
-                    </h5>
-                    <p className="card-text">Orders will be displayed here</p>
-                  </div>
-                </div>
+                <h5 className="card-title">
+                  <b>Order of {data.firstName}</b>
+                </h5>
               </div>
-              {orders &&
-                orders.map((singleOrder) => {
+
+              {orders.length > 0 ? (
+                orders.map((singleOrder) => {   {console.log(singleOrder)}
                   return (
                     <div
-                      className="container m-2 p-2"
+                      key={singleOrder.orderId}
+                      className="container m-2 p-3"
                       style={{ background: "white" }}>
-                      <div className="row m-0 p-0">
-                        <div className="col-12 pb-0">
+                      <div className="row">
+                        <div className="col-8 pb-0">
                           <h5>
-                            <b>{singleOrder.service_name}</b>
+                            <b>{singleOrder.vehicle_model}</b>
                           </h5>
+                          {singleOrder.services_information &&
+                            singleOrder.services_information.map(
+                              (singleService) => {
+                                return (
+                                  <div className="col-8">
+                                    <p className="text">
+                                      {singleService.service_name}.
+                                    </p>
+                                  </div>
+                                );
+                              }
+                            )}
                         </div>
-                      </div>
-                      <div className="row m-0 p-0">
-                        <div className="col-10 pt-0">
+                        <div className="col-4">
                           <p className="text">
-                            {singleOrder.service_description}.
+                            {singleOrder.order_total_price}
                           </p>
-                        </div>
-                        <div className="col-2 bottom">
-                          {singleOrder.active_order}
+                        
+                          <div
+                            className={
+                              singleOrder.order_status === 0
+                                ? "btn btn-primary mt-5"
+                                : "btn btn-warning mt-5"
+                            }>
+                            {singleOrder.order_status === 0
+                              ? "In progress"
+                              : "completed"}
+                          </div>
                         </div>
                       </div>
                     </div>
                   );
-                })}
+                })
+              ) : (
+                <div className="card">
+                  <div className="card-body">
+                    <p className="text"> No Orders Found</p>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

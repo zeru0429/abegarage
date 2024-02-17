@@ -10,8 +10,7 @@ function AddVehicleForm(props) {
 
   const hadleSubmit = async (e) => {
 		e.preventDefault();
-
-		console.log(form)
+	//	console.log(form)
 		const formData = FormValidator.vehicleForm(form);
 		const isValid = formData.isValid;
 		if(!isValid){
@@ -34,17 +33,20 @@ function AddVehicleForm(props) {
 				vehicle_color:  form.vehicleColor
 			} 
 
-			console.log(data);
+			//console.log(data);
 
 		setErrors({})
 		const response = await VehicleService.register(data);
 		//alert(response.message);
 		setToastData(response);
-		if(response.sucess){
+		
+		if(response.success){
 			console.log("added");
 			setForm({})
 			setErrors({})
-			navigator('/admin/customer/{customerId}');
+			props.setVehicleForm(!props.showVehicleFom);
+			props.handleVehicleSearch();
+			// navigator('/admin/customer/{customerId}');
 		}
 		else{
 
@@ -224,7 +226,7 @@ function AddVehicleForm(props) {
 				<button
 					className="theme-btn btn-style-one"
 					type="submit"
-				
+					
 					data-loading-text="Please wait..."
 				>
 					<span>Add Vehicle</span>

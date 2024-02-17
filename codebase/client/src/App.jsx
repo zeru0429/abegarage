@@ -227,6 +227,14 @@ function App() {
                     </>
                   }
                 />
+                   <Route
+                  path="/admin/vehicle/edit/:id"
+                  element={
+                    <>
+                      <EditVehicle />
+                    </>
+                  }
+                />
                 <Route
                   path="/admin/services"
                   element={

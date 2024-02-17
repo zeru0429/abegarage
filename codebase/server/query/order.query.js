@@ -32,7 +32,7 @@ export default {
   `vehicle_type` varchar(255) NOT NULL,
   `vehicle_mileage` int(11) NOT NULL,  */
   
-   getSingleCustomerOrderById : ` SELECT
+   getSingleCustomerOrderById : `SELECT
    orders.order_id AS orderId,
    customer_vehicle_info.vehicle_year AS vehicle_year,
    customer_vehicle_info.vehicle_make AS vehicle_make,
@@ -42,6 +42,12 @@ export default {
    order_info.additional_requests_completed AS additional_requests_completed,
    customer_info.customer_first_name AS customer_first_name,
    customer_info.customer_last_name AS customer_last_name,
+   order_info.estimated_completion_date AS estimated_completion_date,
+   order_info.completion_date AS completion_date,
+   order_info.additional_request AS additional_request,
+   order_info.notes_for_internal_use AS notes_for_internal_use,
+   order_info.notes_for_customer AS notes_for_customer,
+   order_status.order_status AS order_status,
    JSON_ARRAYAGG(
        JSON_OBJECT(
            'service_id', common_services.service_id,
@@ -61,6 +67,8 @@ JOIN
    order_services ON orders.order_id = order_services.order_id
 JOIN
    common_services ON order_services.service_id = common_services.service_id
+JOIN
+   order_status ON orders.order_id = order_status.order_id
 WHERE
    orders.customer_id = ?
 GROUP BY
@@ -71,7 +79,14 @@ GROUP BY
    order_total_price,
    additional_requests_completed,
    customer_first_name,
-   customer_last_name;`,
+   customer_last_name,
+   estimated_completion_date,
+   completion_date,
+   additional_request,
+   notes_for_internal_use,
+   notes_for_customer,
+   order_status;
+`,
 
    getOrdersByOrder_hash: `SELECT 
    oi.order_id,
